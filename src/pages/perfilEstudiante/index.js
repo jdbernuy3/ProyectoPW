@@ -1,15 +1,14 @@
-import NavBarEstudiantePerfil from "../../Componentes/BarrasDeNavegacion/NavBarEstudiantePerfil"
+'use client';
+import BannerSupBiblio from "@/Componentes/BannerSupBiblio/BannerSupBiblio";
+import Sidebar from "@/Componentes/BarraLateral/Sidebar";
 
-function EstudiantePerfil()
-{
+const PerfilEstudiante = () => {
     return (
         <>
-        <h1>Pagina Estudiante</h1>
-    <NavBarEstudiantePerfil></NavBarEstudiantePerfil>
-        </>
-    
-    )
+            <BannerSupBiblio></BannerSupBiblio>
+            <Sidebar></Sidebar>
+            </>
+        )
+} 
 
-}
-
-export default EstudiantePerfil
+export default PerfilEstudiante

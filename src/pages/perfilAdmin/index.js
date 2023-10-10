@@ -1,17 +1,15 @@
-import NavBarAdministradorPerfil from "../../Componentes/BarrasDeNavegacion/NavBarAdministradorPerfil"
+'use client';
+import Sidebar from "@/Componentes/BarraLateral/Sidebar";
+import BannerSupVacio from "@/Componentes/BannerSupVacio/BannerSupVacio";
 
-function AdminPerfil()
-{
-    return 
-    (
+const PerfilAdmin = () => {
+
+    return (
         <>
-        <h1>Pagina Admin</h1>
-        <NavBarAdministradorPerfil> </NavBarAdministradorPerfil>
+            <BannerSupVacio></BannerSupVacio>
+            <Sidebar></Sidebar>
         </>
-        
-    );
+    )
+} 
 
-
-}
-
-export default AdminPerfil
+export default PerfilAdmin

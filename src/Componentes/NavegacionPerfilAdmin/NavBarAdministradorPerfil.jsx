@@ -1,4 +1,6 @@
-export default function NavBarAdministradorPerfil() {
+import './BarrasNav.css'
+
+const BarraNavAdmin = () =>{
     return (
         <nav>
                 <ul>
@@ -16,3 +18,17 @@ export default function NavBarAdministradorPerfil() {
 
     )
 }
+
+
+
+const Navbar = () =>{
+    return(
+        <div className="navbar">
+            <p>Menú</p>
+            <h5>Atención de citas</h5>
+            <p>Perfil</p>
+        </div>
+    )
+}
+
+export default Navbar;
