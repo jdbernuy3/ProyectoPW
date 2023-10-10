@@ -2,33 +2,14 @@
 import MyAppBar from "../components/MyAppBar/MyAppBar"
 import MyTabPanel from "../components/MyTabPanel/MyTabPanel"
 
-function Contenido1() {
-    return (
-        <>
-        <h1>HOLAAAAAAAAAAAAAA</h1>
-        </>
-    )
-}
-
-function Contenido2() {
-    return (
-        <>
-        <h1>asdasdasdasd</h1>
-        </>
-    )
-}
-
 function EliminarRecurso() {
 
     const tabs = [
         {
             id: 0,
-            text: 'Hola',
+            text: 'INSERTAR NUEVO LIBRO',
+            contenido:  <><h1>asdasdasdasd</h1></>   
         },
-        {
-            id: 1,
-            text: 'Hola2',
-        }
     ]
 
     return (
