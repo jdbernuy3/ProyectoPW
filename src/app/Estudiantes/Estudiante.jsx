@@ -1,15 +1,12 @@
 
 
-
+{/*
 return (
     <>
         <h1>Mi Perfil</h1>
         {
-            /* Agregar Barra de Navegacion; Datos Personales y Cuenta */ 
+             Agregar Barra de Navegacion; Datos Personales y Cuenta  
         }
-
-
-
 
 
         <input>
@@ -19,6 +16,6 @@ return (
         
     </>
 )
-}
 
 export default Alumnos
+    */  }
