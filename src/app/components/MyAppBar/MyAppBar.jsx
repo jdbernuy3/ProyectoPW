@@ -59,15 +59,24 @@ export default function MyAppBar(props) {
             </ThemeProvider>
             <div className={`top-18 left-0 w-24vw bg-[#D9D9D9] py-5 px-2 text-white fixed h-full z-40 ease-in-out duration-300 ${sidebar ? "translate-x-0" : "-translate-x-full"
                 }`}>
-                <ul class="space-y-2 font-medium">
+                <ul className="space-y-2 font-medium">
                     <li>
-                        <a href="/inicio" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
+                        <a href="/inicio" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
                     </li>
                     <li>
-                        <a href="/perfil/admin" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
+                        <a href="/perfil/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
                     </li>
                     <li>
-                        <a href="/biblioteca" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Bibliotecas</a>
+                        <a href="/biblioteca" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Bibliotecas</a>
+                    </li>
+                    <li>
+                        <a href="/horarios" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Horarios</a>
+                    </li>
+                    <li>
+                        <a href="/prestamos" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Préstamos</a>
+                    </li>
+                    <li>
+                        <a href="/citas" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Citas</a>
                     </li>
                 </ul>
                 <p className="text-black bottom-20 absolute">Biblio v1.0.1-alpha</p>
