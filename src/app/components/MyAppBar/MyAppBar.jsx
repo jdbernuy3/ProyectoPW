@@ -61,13 +61,17 @@ export default function MyAppBar(props) {
                 }`}>
                 <ul class="space-y-2 font-medium">
                     <li>
-                        <a href="/inicio" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
+                        <a href="/ini
+                        cio" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
                     </li>
                     <li>
                         <a href="/perfil/admin" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
                     </li>
                     <li>
                         <a href="/biblioteca" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Bibliotecas</a>
+                    </li>
+                    <li>
+                        <a href="/busqueda" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Busqueda</a>
                     </li>
                 </ul>
                 <p className="text-black bottom-20 absolute">Biblio v1.0.1-alpha</p>

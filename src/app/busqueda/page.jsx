@@ -3,13 +3,9 @@ import MyAppBar from "../components/MyAppBar/MyAppBar"
 import MyTabPanel from "../components/MyTabPanel/MyTabPanel"
 import FormInsertarRecurso from "../components/FormInsertarRecurso/FormInsertarRecurso"
 
+
 function busquedaAdm() {
 
-    const tabs = [
-        {
-         
-        },
-    ]
 
     return (
         <>
