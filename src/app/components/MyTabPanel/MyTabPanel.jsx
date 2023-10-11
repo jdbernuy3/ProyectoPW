@@ -52,7 +52,7 @@ export default function MyTabPanel(props) {
                 <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example">
                     {
                         props.tabs.map((element) =>
-                            <Tab label={element.text} {...a11yProps(element.id)} />
+                            <Tab key={element.id} label={element.text} {...a11yProps(element.id)} />
                         )
                     }
                 </Tabs>
@@ -60,7 +60,7 @@ export default function MyTabPanel(props) {
 
             {
                 props.tabs.map((element) =>
-                    <CustomTabPanel value={value} index={element.id}>
+                    <CustomTabPanel key={element.id} value={value} index={element.id}>
                         {element.contenido}
                     </CustomTabPanel>
                 )
