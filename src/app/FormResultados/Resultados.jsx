@@ -17,10 +17,12 @@ const commonStyles = {
 
  function FormResultados() { 
 	return ( 
-		<Box textAlign={"center"} sx={{ display: 'flex', justifyContent: 'center' }}> 
+		<Box style={{ alignSelf: "center" }} textAlign={"center"} sx={{ display: 'flex', justifyContent: 'center' }}> 
 			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px'}} >
       <Typography >Psychology of Computer Programming</Typography>
-        <img inline-block className='h-40 w-40' src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/49420/man-student-emoji-clipart-md.png"></img>
+        <img inline-block className='h-40 w-40'
+         src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/49420/man-student-emoji-clipart-md.png"
+         ></img>
       <Typography >ISBN: 00000</Typography>
       <Typography >Author: 09322633420</Typography>
       <Typography >Editor: Adison</Typography>
