@@ -17,9 +17,7 @@ function FormInsertarRecurso() {
                     <TextField id="outlined-basic" label="Serie, tipo" variant="outlined" />
                 </li>
             </ul>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
-                Button
-            </button>
+            <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Guardar</button>
         </div>
         </>
     )
