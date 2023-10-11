@@ -1,6 +1,9 @@
 'use client';
+import FormDatosPersonales from "@/app/components/FormDatosPersonales/FormDatosPersonales";
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
+import FormCuenta from "@/app/components/FormCuenta/FormCuenta";
+import FormPreferencias from "@/app/components/FormPreferencias/FormPreferencias";
 
 
 const PerfilAdmin = () => {
@@ -9,17 +12,17 @@ const PerfilAdmin = () => {
         {
             id: 0,
             text: 'Datos Personales',
-            contenido: <h1>Datos Personales</h1>
+            contenido: <FormDatosPersonales></FormDatosPersonales>
         },
         {
             id: 1,
             text: 'Cuenta',
-            contenido: <h1>Cuenta</h1>
+            contenido: <FormCuenta></FormCuenta>
         },
         {
             id: 2,
             text: 'Preferencias',
-            contenido: <h1>Preferencias</h1>
+            contenido: <FormPreferencias></FormPreferencias>
         },
     ]
 
