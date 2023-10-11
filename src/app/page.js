@@ -9,8 +9,9 @@ export default function Home() {
 
   useEffect(() => {
     const datos = JSON.parse(localStorage.getItem("libros"));
-    if (datos === null) {
-      setLibros(window.localStorage.setItem("libros", JSON.stringify(dataInicial)));
+    console.log(datos);
+    if (datos.length === 0) {
+      window.localStorage.setItem("libros", JSON.stringify(dataInicial));
     }
   }, [])
 

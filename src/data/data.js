@@ -1,5 +1,6 @@
 export const dataInicial = [
     {
+        id: 1,
         autor: "Joyce dunbar",
         serie: "Libro",
         ISBN: "8423687570",
@@ -10,6 +11,7 @@ export const dataInicial = [
         fechaRetorno: "October 28, 2023 11:13:00",
     },
     {
+        id: 2,
         autor: "Ian sommerville",
         serie: "Libro físico",
         ISBN: "6073206038",
@@ -20,6 +22,7 @@ export const dataInicial = [
         fechaRetorno: "",
     },
     {
+        id: 3,
         autor: "Juan f. mateos",
         serie: "Libro físico",
         ISBN: "9788441523760",
@@ -30,6 +33,7 @@ export const dataInicial = [
         fechaRetorno: "",
     },
     {
+        id: 4,
         serie: "Libro físico",
         autor: "Peter hünermann",
         ISBN: "9789563570182",

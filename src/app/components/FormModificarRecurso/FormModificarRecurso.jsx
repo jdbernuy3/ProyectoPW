@@ -1,7 +1,8 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 
-function FormInsertarRecurso() {
+function FormInsertarRecurso(props) {
+
     const libroInicial = {
         id: 0,
         serie: "",
@@ -14,34 +15,32 @@ function FormInsertarRecurso() {
         fechaRetorno: "",
     }
 
-    const [libro, setLibro] = useState(libroInicial);
+    
     const [libros, setLibros] = useState(() => {
         const localData = JSON.parse(localStorage.getItem("libros"));
         return localData || [];
     });
 
-    /*
-    useEffect(() => {
-        // Recuperar libros almacenados en el LocalStorage al cargar el componente
-        const librosInicial = JSON.parse(localStorage.getItem("libros")) || [];
-        setLibros(librosInicial);
-    }, []);
-    */
+    const [libro, setLibro] = useState(libros[props.indice]);
 
     useEffect(() => {
         // Actualizar el LocalStorage cuando la lista de libros cambie
         localStorage.setItem("libros", JSON.stringify(libros));
     }, [libros]);
-    
-    const handleAgregar = () => {
-        // Agregar el libro actual a la lista de libros y reiniciar el formulario
-        setLibros([...libros, libro]);
-        setLibro(libroInicial);
+
+    const handleModificar = () => {
+        const nuevosLibros = [...libros];
+
+        if (nuevosLibros[props.indice]) {
+            nuevosLibros[props.indice] = libro;
+        }
+
+        setLibros(nuevosLibros);
     }
 
     const handleChange = (field, value) => {
         // Actualizar el estado del libro con el valor del campo correspondiente
-        setLibro({ ...libro, [field]: value, id: libros.length });
+        setLibro({ ...libro, [field]: value });
     }
 
     return (
@@ -49,43 +48,47 @@ function FormInsertarRecurso() {
             <ul>
                 <li className='p-4'>
                     <TextField
-                        id="outlined-basic"
-                        label="TÍTULO"
-                        variant="outlined"
+                        label='Título'
                         value={libro.titulo}
+                        color='secondary'
+                        variant="outlined"
                         onChange={(e) => handleChange("titulo", e.target.value)}
-                    />
+                        focused
+                    ></TextField>
                 </li>
                 <li className='p-4'>
                     <TextField
-                        id="outlined-basic"
-                        label="Autor, autores"
-                        variant="outlined"
+                        label='Autor, autores'
                         value={libro.autor}
+                        color='secondary'
+                        variant="outlined"
                         onChange={(e) => handleChange("autor", e.target.value)}
-                    />
+                        focused
+                    ></TextField>
                 </li>
                 <li className='p-4'>
                     <TextField
-                        id="outlined-basic"
-                        label="ISBN"
-                        variant="outlined"
+                        label='ISBN'
                         value={libro.ISBN}
+                        color='secondary'
+                        variant="outlined"
                         onChange={(e) => handleChange("ISBN", e.target.value)}
-                    />
+                        focused
+                    ></TextField>
                 </li>
                 <li className='p-4'>
                     <TextField
-                        id="outlined-basic"
-                        label="Serie, tipo"
-                        variant="outlined"
+                        label='Serie, tipo'
                         value={libro.serie}
+                        color='secondary'
+                        variant="outlined"
                         onChange={(e) => handleChange("serie", e.target.value)}
-                    />
+                        focused
+                    ></TextField>
                 </li>
             </ul>
-            <button onClick={handleAgregar} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
-                Guardar
+            <button onClick={handleModificar} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
+                Modificar
             </button>
         </div>
     );
