@@ -1,21 +1,10 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
+import AlertDialog from "../components/AlertDialog/AlertDialog"
 
 function FormInsertarRecurso(props) {
 
-    const libroInicial = {
-        id: 0,
-        serie: "",
-        autor: "",
-        ISBN: "",
-        imagenPortadaURL: "",
-        titulo: "",
-        reserva: false,
-        fechaReserva: "",
-        fechaRetorno: "",
-    }
-
-    
+    const [alertDialog, setAlertDialog] = useState(false);
     const [libros, setLibros] = useState(() => {
         const localData = JSON.parse(localStorage.getItem("libros"));
         return localData || [];
@@ -28,7 +17,8 @@ function FormInsertarRecurso(props) {
         localStorage.setItem("libros", JSON.stringify(libros));
     }, [libros]);
 
-    const handleModificar = () => {
+    const handleModificar = (e) => {
+        e.preventDefault();
         const nuevosLibros = [...libros];
 
         if (nuevosLibros[props.indice]) {
@@ -36,6 +26,7 @@ function FormInsertarRecurso(props) {
         }
 
         setLibros(nuevosLibros);
+        setAlertDialog(true);
     }
 
     const handleChange = (field, value) => {
@@ -44,7 +35,8 @@ function FormInsertarRecurso(props) {
     }
 
     return (
-        <div className='text-center'>
+        <>
+        <form className='text-center' onSubmit={handleModificar}>
             <ul>
                 <li className='p-4'>
                     <TextField
@@ -87,10 +79,10 @@ function FormInsertarRecurso(props) {
                     ></TextField>
                 </li>
             </ul>
-            <button onClick={handleModificar} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
-                Modificar
-            </button>
-        </div>
+            <input type='submit' value='Modificar' className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0"></input>
+            <AlertDialog title='Modificación Completa' text='El recurso ha sido modificado con éxito.' open={alertDialog} onClose={handleAlert}></AlertDialog>
+        </form>
+        </>
     );
 }
 

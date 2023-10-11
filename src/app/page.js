@@ -10,7 +10,7 @@ export default function Home() {
   useEffect(() => {
     const datos = JSON.parse(localStorage.getItem("libros"));
     console.log(datos);
-    if (datos.length === 0) {
+    if (datos === null) {
       window.localStorage.setItem("libros", JSON.stringify(dataInicial));
     }
   }, [])
