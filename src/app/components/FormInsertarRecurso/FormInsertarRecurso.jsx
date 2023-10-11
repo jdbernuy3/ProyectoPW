@@ -13,6 +13,7 @@ function FormInsertarRecurso() {
         reserva: false,
         fechaReserva: "",
         fechaRetorno: "",
+        vecesReservado: 0,
     }
 
     const [alertDialog, setAlertDialog] = useState(false);

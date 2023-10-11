@@ -3,13 +3,13 @@ import MyAppBar from "../components/MyAppBar/MyAppBar"
 import MyTabPanel from "../components/MyTabPanel/MyTabPanel"
 import FormModificarRecurso from "../components/FormModificarRecurso/FormModificarRecurso"
 
-function ModificarRecurso(props) {
+function ModificarRecurso({ searchParams }) {
 
     const tabs = [
         {
             id: 0,
             text: 'MODIFICAR LIBRO',
-            contenido: <FormModificarRecurso libro={props.libro}></FormModificarRecurso>
+            contenido: <FormModificarRecurso id={parseInt(searchParams.id)}></FormModificarRecurso>
         },
     ]
 

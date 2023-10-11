@@ -9,6 +9,7 @@ export const dataInicial = [
         reserva: true,
         fechaReserva: "October 13, 2023 11:13:00",
         fechaRetorno: "October 28, 2023 11:13:00",
+        vecesReservado: 4,
     },
     {
         id: 2,
@@ -20,6 +21,7 @@ export const dataInicial = [
         reserva: false,
         fechaReserva: "",
         fechaRetorno: "",
+        vecesReservado: 7,
     },
     {
         id: 3,
@@ -27,10 +29,11 @@ export const dataInicial = [
         serie: "Libro físico",
         ISBN: "9788441523760",
         imagenPortadaURL: "https://images.cdn1.buscalibre.com/fit-in/180x180/b2/4f/b24f5a1c7adddcc154ad324483235c72.jpg",
-        titulo: "Edición de Medios Digitales con Software Libre (Tratamiento de Vídeo, Audio e Imagen con Software Gratuito) (Guías Prácticas)",
+        titulo: "Edición de Medios Digitales con Software Libre",
         reserva: false,
         fechaReserva: "",
         fechaRetorno: "",
+        vecesReservado: 12,
     },
     {
         id: 4,
@@ -42,5 +45,6 @@ export const dataInicial = [
         reserva: false,
         fechaReserva: "",
         fechaRetorno: "",
+        vecesReservado: 2,
     },
 ]

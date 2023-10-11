@@ -1,16 +1,24 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
-import AlertDialog from "../components/AlertDialog/AlertDialog"
+import AlertDialog from '../AlertDialog/AlertDialog';
 
-function FormInsertarRecurso(props) {
+function FormModificarRecurso(props) {
 
+    
     const [alertDialog, setAlertDialog] = useState(false);
     const [libros, setLibros] = useState(() => {
         const localData = JSON.parse(localStorage.getItem("libros"));
         return localData || [];
     });
+    
+    const [indice, setIndice] = useState(() => {
+        const lista = [...libros];
+        const ind = lista.findIndex((element) => element.id == props.id);
+        return ind;
+    });
 
-    const [libro, setLibro] = useState(libros[props.indice]);
+
+    const [libro, setLibro] = useState(libros[indice]);
 
     useEffect(() => {
         // Actualizar el LocalStorage cuando la lista de libros cambie
@@ -21,8 +29,8 @@ function FormInsertarRecurso(props) {
         e.preventDefault();
         const nuevosLibros = [...libros];
 
-        if (nuevosLibros[props.indice]) {
-            nuevosLibros[props.indice] = libro;
+        if (nuevosLibros[indice]) {
+            nuevosLibros[indice] = libro;
         }
 
         setLibros(nuevosLibros);
@@ -32,6 +40,10 @@ function FormInsertarRecurso(props) {
     const handleChange = (field, value) => {
         // Actualizar el estado del libro con el valor del campo correspondiente
         setLibro({ ...libro, [field]: value });
+    }
+
+    const handleAlert = () => {
+        setAlertDialog(false);
     }
 
     return (
@@ -86,4 +98,4 @@ function FormInsertarRecurso(props) {
     );
 }
 
-export default FormInsertarRecurso;
+export default FormModificarRecurso;
