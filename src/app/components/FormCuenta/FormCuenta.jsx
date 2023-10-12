@@ -1,22 +1,56 @@
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 function FormCuenta() {
-    return (
-        <><div className='text-center'>
-            <ul>
-                <li className='p-4'>
-                    <TextField id="outlined-basic" label="Correo" variant="outlined" />
-                </li>
-                <li className='p-4'>
-                    <TextField id="outlined-basic" label="Contraseña" variant="outlined" />
-                </li>
-            </ul>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
-                Guardar
-            </button>
+  const [formData, setFormData] = useState({
+    correo: '',
+    contraseña: ''
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Datos del formulario:', formData);
+    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className='text-center'>
+          <ul>
+            <li className='p-4'>
+              <TextField
+                label="Correo"
+                variant="outlined"
+                type="text"
+                id="correo"
+                name="correo"
+                value={formData.correo}
+                onChange={handleChange}
+              />
+            </li>
+            <li className='p-4'>
+              <TextField
+                label="Contraseña"
+                variant="outlined"
+                type="password"
+                id="contraseña"
+                name="contraseña"
+                value={formData.contraseña}
+                onChange={handleChange}
+              />
+            </li>
+          </ul>
+          <input type='submit' value='Guardar' className="bg-purple-500 hover-bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus-ring-0" />
         </div>
-        </>
-    )
+      </form>
+    </>
+  );
 }
 
-export default FormCuenta
+export default FormCuenta;

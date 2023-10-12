@@ -1,25 +1,68 @@
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 function FormPreferencias() {
-    return (
-        <><div className='text-center'>
-            <ul>
-                <li className='p-4'>
-                    <TextField id="outlined-basic" label="Idioma" variant="outlined" />
-                </li>
-                <li className='p-4'>
-                    <TextField id="outlined-basic" label="Prefijo" variant="outlined" />
-                </li>
-                <li className='p-4'>
-                    <TextField id="outlined-basic" label="Color" variant="outlined" />
-                </li>
-            </ul>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">
-                Guardar
-            </button>
+  const [formData, setFormData] = useState({
+    idioma: '',
+    prefijo: '', 
+    color: '',  
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Datos del formulario:', formData);
+    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <div className='text-center'>
+          <ul>
+            <li className='p-4'>
+              <TextField
+                label="Idioma"
+                variant="outlined"
+                type="text"
+                id="idioma"
+                name="idioma"
+                value={formData.idioma}
+                onChange={handleChange}
+              />
+            </li>
+            <li className='p-4'>
+              <TextField
+                label="Prefijo"
+                variant="outlined"
+                type="text"
+                id="prefijo"
+                name="prefijo"
+                value={formData.prefijo}
+                onChange={handleChange} 
+              />
+            </li>
+            <li className='p-4'>
+              <TextField
+                label="Color"
+                variant="outlined"
+                type="text"
+                id="color"
+                name="color"
+                value={formData.color}
+                onChange={handleChange} 
+              />
+            </li>
+          </ul>
+          <input type='submit' value='Guardar' className="bg-purple-500 hover-bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus-ring-0" />
         </div>
-        </>
-    )
+      </form>
+    </>
+  );
 }
 
-export default FormPreferencias
+export default FormPreferencias;
