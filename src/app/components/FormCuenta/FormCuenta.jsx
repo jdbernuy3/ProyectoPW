@@ -46,7 +46,7 @@ function FormCuenta() {
               />
             </li>
           </ul>
-          <input type='submit' value='Guardar' className="bg-purple-500 hover-bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus-ring-0" />
+          <input type='submit' value='Guardar' className="bg-white hover-bg-purple-700 text-gray font-bold py-2 px-4 rounded-full focus-ring-0" />
         </div>
       </form>
     </>
