@@ -64,7 +64,11 @@ export default function MyAppBar(props) {
                         <a href="/inicio" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
                     </li>
                     <li>
-                        <a href="/perfil/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
+                        {2 === 3 ? ( //Aca aniado la condicion para que dependa si es Admin o estudiante.
+                            <a href="/perfil/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
+                            ) : (
+                             <a href="/perfil/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Perfil</a>
+                            )}
                     </li>
                     <li>
                         <a href="/biblioteca" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Bibliotecas</a>
