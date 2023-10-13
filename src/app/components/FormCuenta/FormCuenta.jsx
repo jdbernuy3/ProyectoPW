@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-function FormCuenta() {
-  const [formData, setFormData] = useState({
+function FormCuenta({cuentaData, setCuentaData} ) {
+  const [formAccount, setFormAccount] = useState({
     correo: '',
     contraseña: ''
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormAccount({ ...formAccount, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Datos del formulario:', formData);
+    console.log('Datos antiguos', cuentaData);
+    console.log('Nuevos Datos:', formAccount);
+    setCuentaData(formAccount);
     // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
   };
 
@@ -30,7 +32,7 @@ function FormCuenta() {
                 type="text"
                 id="correo"
                 name="correo"
-                value={formData.correo}
+                value={formAccount.correo}
                 onChange={handleChange}
               />
             </li>
@@ -41,7 +43,7 @@ function FormCuenta() {
                 type="password"
                 id="contraseña"
                 name="contraseña"
-                value={formData.contraseña}
+                value={formAccount.contraseña}
                 onChange={handleChange}
               />
             </li>

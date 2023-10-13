@@ -3,19 +3,35 @@ import FormCuenta from "@/app/components/FormCuenta/FormCuenta";
 import FormDatosPersonales from "@/app/components/FormDatosPersonales/FormDatosPersonales";
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
+import React, { useState } from 'react';
+
+
+
 
 const PerfilEstudiante = () => {
+
+    const [userData, setUserData] = useState({
+        nombre: '',
+        tdoc: 'DNI',
+        apellido: '',
+        nroDoc: '2131',
+      });
+    
+    const [cuentaData, setCuentaData] = useState({
+        correo: '',
+        contraseña: '',
+    });
     
     const tabs = [
         {
             id: 0,
             text: 'Datos Personales',
-            contenido: <FormDatosPersonales></FormDatosPersonales>
+            contenido: <FormDatosPersonales userData={userData} setUserData={setUserData}></FormDatosPersonales>
         },
         {
             id: 1,
             text: 'Cuenta',
-            contenido: <FormCuenta></FormCuenta>
+            contenido: <FormCuenta cuentaData={cuentaData} setCuentaData={setCuentaData}></FormCuenta>
         },
     ]
     

@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-function FormDatosPersonales() {
+function FormDatosPersonales({userData, setUserData}) {
   const [formData, setFormData] = useState({
     nombre: '',
     tdoc: '', // Inicializamos tdoc en un valor vacío
@@ -24,7 +24,9 @@ function FormDatosPersonales() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Datos del formulario:', formData);
+    console.log('Datos Antiguos:', userData);
+    console.log('Nuevos Datos:', formData);
+    setUserData(formData);
     // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
   };
 
