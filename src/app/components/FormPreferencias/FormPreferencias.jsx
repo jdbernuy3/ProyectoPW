@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-function FormPreferencias() {
-  const [formData, setFormData] = useState({
+function FormPreferencias({ preferencias, setPreferencias }) {
+  const [formPref, setFormPref] = useState({
     idioma: '',
     prefijo: '', 
     color: '',  
@@ -10,12 +10,15 @@ function FormPreferencias() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormPref({ ...formPref, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Datos del formulario:', formData);
+    console.log('Datos antiguos:', preferencias);
+    console.log('NuevosDatos:', formPref);
+    setPreferencias(formPref);
+    
     // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
   };
 
@@ -31,7 +34,7 @@ function FormPreferencias() {
                 type="text"
                 id="idioma"
                 name="idioma"
-                value={formData.idioma}
+                value={formPref.idioma}
                 onChange={handleChange}
               />
             </li>
@@ -42,7 +45,7 @@ function FormPreferencias() {
                 type="text"
                 id="prefijo"
                 name="prefijo"
-                value={formData.prefijo}
+                value={formPref.prefijo}
                 onChange={handleChange} 
               />
             </li>
@@ -53,7 +56,7 @@ function FormPreferencias() {
                 type="text"
                 id="color"
                 name="color"
-                value={formData.color}
+                value={formPref.color}
                 onChange={handleChange} 
               />
             </li>

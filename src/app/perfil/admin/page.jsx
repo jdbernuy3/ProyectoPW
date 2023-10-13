@@ -4,25 +4,48 @@ import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
 import FormCuenta from "@/app/components/FormCuenta/FormCuenta";
 import FormPreferencias from "@/app/components/FormPreferencias/FormPreferencias";
+import React, { useState } from 'react';
+
+
+
 
 
 const PerfilAdmin = () => {
+
+    const [userData, setUserData] = useState({
+        nombre: 'jd',
+        tdoc: 'DNI',
+        apellido: 'br',
+        nroDoc: '12',
+      });
+    
+    const [cuentaData, setCuentaData] = useState({
+        correo: '2',
+        contraseña: '2',
+    });
+    
+    const [preferencias, setPreferencias] = useState({
+        idioma: '3',
+        prefijo: '3', 
+        color: '3', 
+      });
+      
 
     const tabs = [
         {
             id: 0,
             text: 'Datos Personales',
-            contenido: <FormDatosPersonales></FormDatosPersonales>
+            contenido: <FormDatosPersonales userData={userData} setUserData={setUserData}></FormDatosPersonales> //cambio
         },
         {
             id: 1,
             text: 'Cuenta',
-            contenido: <FormCuenta></FormCuenta>
+            contenido: <FormCuenta cuentaData={cuentaData} setCuentaData={setCuentaData}></FormCuenta>
         },
         {
             id: 2,
             text: 'Preferencias',
-            contenido: <FormPreferencias></FormPreferencias>
+            contenido: <FormPreferencias preferencias={preferencias} setPreferencias={setPreferencias}></FormPreferencias>
         },
     ]
 
