@@ -1,6 +1,6 @@
 'use client'
 import * as React from "react";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -19,11 +19,22 @@ const theme = createTheme({
     },
 });
 
+
+
 export default function MyAppBar(props) {
 
     const [sidebar, setSidebar] = useState(true);
+    const [esAdministrador, setEsAdministrador] = useState(false); // Inicialmente asumimos que no es administrador
 
     const showSidebar = () => setSidebar(!sidebar);
+
+    useEffect(() => {
+        // Aca verifico que sea admin.
+
+        const usuarioEsAdmin = true; // Si esto es firme, cambia a admin
+
+        setEsAdministrador(usuarioEsAdmin);
+    }, []);
 
     return (
         <>
@@ -64,10 +75,10 @@ export default function MyAppBar(props) {
                         <a href="/inicio" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
                     </li>
                     <li>
-                        {2 === 3 ? ( //Aca aniado la condicion para que dependa si es Admin o estudiante.
+                        {esAdministrador ? (
                             <a href="/perfil/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Perfil</a>
                             ) : (
-                             <a href="/perfil/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Perfil</a>
+                            <a href="/perfil/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Perfil</a>
                             )}
                     </li>
                     <li>
