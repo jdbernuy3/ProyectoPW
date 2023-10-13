@@ -53,7 +53,7 @@ function DetalleRecurso({ searchParams }) {
                         <div>
                             <h1 className="p-10 font-bold text-4xl">{libro.titulo}</h1>
                             <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
-                                <img className="w-64 h-96" src={libro.imagenPortadaURL != '' ? libro.imagenPortadaURL : 'https://elcomercio.pe/resizer/k3JQ9nQAHSY_xqle1DBrrSgYgGI=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/7OQEQHOSPZEDVMAAJFQLXCCYQE.jpg'}></img>
+                                <img className="w-64 h-fit" src={libro.imagenPortadaURL != '' ? libro.imagenPortadaURL : 'https://elcomercio.pe/resizer/k3JQ9nQAHSY_xqle1DBrrSgYgGI=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/7OQEQHOSPZEDVMAAJFQLXCCYQE.jpg'}></img>
                                 <div className="w-max p-10 grid gap-20 md:grid-cols-2">
                                     <div>
                                         <h2 className="font-regular text-2xl">Autor:</h2>
