@@ -1,6 +1,6 @@
 'use client';
 
-import StyleL from 'C:\Users\PC\Desktop\TRABAJO\ProyectoPW\src\app\Login\styleL.css'
+import styleL from '../src/app/Login/styleL.css'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
