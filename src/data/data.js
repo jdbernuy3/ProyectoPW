@@ -10,6 +10,7 @@ export const dataInicial = [
         fechaReserva: "October 13, 2023 11:13:00",
         fechaRetorno: "October 28, 2023 11:13:00",
         vecesReservado: 4,
+        estudiante: "Lionel Messi",
     },
     {
         id: 2,
@@ -22,6 +23,7 @@ export const dataInicial = [
         fechaReserva: "",
         fechaRetorno: "",
         vecesReservado: 7,
+        estudiante: "",
     },
     {
         id: 3,
@@ -34,6 +36,7 @@ export const dataInicial = [
         fechaReserva: "",
         fechaRetorno: "",
         vecesReservado: 12,
+        estudiante: "",
     },
     {
         id: 4,
@@ -46,5 +49,6 @@ export const dataInicial = [
         fechaReserva: "",
         fechaRetorno: "",
         vecesReservado: 2,
+        estudiante: "",
     },
 ]

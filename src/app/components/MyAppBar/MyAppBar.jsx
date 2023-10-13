@@ -21,7 +21,7 @@ const theme = createTheme({
 
 export default function MyAppBar(props) {
 
-    const [sidebar, setSidebar] = useState(false);
+    const [sidebar, setSidebar] = useState(true);
 
     const showSidebar = () => setSidebar(!sidebar);
 
@@ -87,6 +87,3 @@ export default function MyAppBar(props) {
         </>
     );
 }
-
-
-// {sidebar ? 'nav-menu active' : 'nav-menu'}

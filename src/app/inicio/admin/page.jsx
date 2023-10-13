@@ -5,6 +5,8 @@ import { useState } from "react";
 
 function InicioAdmin() {
 
+    const user = 'Juliana'
+
     const [ultimasReservas, setUltimasReservas] = useState(() => {
         const libros = JSON.parse(localStorage.getItem("libros"));
         const librosReservados = libros.filter((libro) => libro.reserva === true)
@@ -30,14 +32,14 @@ function InicioAdmin() {
         <>
             <MyAppBar></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8">
-                <h1 className="pt-10 text-4xl">Bienvenido, Juliana!</h1>
+                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user}!`}</h1>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
                 <div className="bg-[#F3EDF7] p-10">
                     <h2 className="text-xl font-medium mb-5">Últimas reservas</h2>
                     <div className="flex space-x-4">
                     {
                         ultimasReservas.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva}></SimpleCard>
+                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
                         )
                     }
                     </div>
@@ -47,7 +49,7 @@ function InicioAdmin() {
                     <div className="flex space-x-4">
                     {
                         masPedidos.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva}></SimpleCard>
+                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
                         )
                     }
                     </div>
