@@ -3,6 +3,7 @@
 import styleL from 'src\app\Login\styleL.css'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import <FormLogin></FormLogin> from '@/app/components/FormLogin/FormLogin'
 
 
 const Login = () => {
