@@ -28,6 +28,20 @@ const PerfilEstudiante = () => {
         correo: '',
         contraseña: '',
     });
+
+    /*
+    const [userData, setUserData] = useState({
+        nombre: users[0].nombre,
+        tdoc: users[0].TipoDocumento,
+        apellido: users[0].apellidos,
+        nroDoc: users[0].NroDocumento,
+      });
+    
+    const [cuentaData, setCuentaData] = useState({
+        correo: users[0].correo,
+        contraseña: users[0].contrasena,
+    });
+    */
     
     const tabs = [
         {
