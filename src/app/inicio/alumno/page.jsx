@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import users from "src/data/users";
-
+import SimpleCard from "@/app/components/SimpleCard/SimpleCard"
 const booksData = [
     {
       id: 1,

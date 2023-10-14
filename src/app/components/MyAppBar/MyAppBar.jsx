@@ -35,7 +35,17 @@ export default function MyAppBar(props) {
 
         setEsAdministrador(usuarioEsAdmin);
     }, []);
+    
+    const [esAlumno, setEsAlumno] = useState(false);
+   
 
+    useEffect(() => {
+        // Aca verifico que sea admin.
+
+        const usuarioEsAlumno = true; // Si esto es firme, cambia a admin
+
+        setEsAlumno(usuarioEsAlumno);
+    }, []);
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -71,6 +81,14 @@ export default function MyAppBar(props) {
             <div className={`top-18 left-0 w-24vw bg-[#D9D9D9] py-5 px-2 text-white fixed h-full z-40 ease-in-out duration-300 ${sidebar ? "translate-x-0" : "-translate-x-full"
                 }`}>
                 <ul className="space-y-2 font-medium">
+                    <li>
+                    {esAlumno ? (
+                            <a href="/inicio/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
+                            ) : (
+                            <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Inicio</a>
+                            )}
+
+                    </li>
                     <li>
                     {esAdministrador ? (
                             <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
