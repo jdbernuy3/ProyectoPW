@@ -1,15 +1,12 @@
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-<<<<<<< HEAD:src/app/FormResultados/Resultados.jsx
 
-=======
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import Image from "next/image";
 import TextField from "@mui/material/TextField"
 import { InputAdornment } from "@mui/material/InputAdornment";
 import Link from "next/link";
->>>>>>> c56295629c1ff97eafbabd4c056ca13e5236cba1:src/app/FormResultados/page.jsx
 
 
 const commonStyles = { 
