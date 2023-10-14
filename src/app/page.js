@@ -15,6 +15,14 @@ export default function Home() {
     }
   }, [])
 
+  useEffect(() => {
+    const datos = JSON.parse(localStorage.getItem("users"));
+    console.log(datos);
+    if (datos === null) {
+      window.localStorage.setItem("users", JSON.stringify(dataInicial));
+    }
+  }, [])
+
   return (
     <>
       <MyAppBar></MyAppBar>

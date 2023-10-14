@@ -14,13 +14,19 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.12",
     "@mui/material": "^5.14.12",
+    "DatePicker": "^2.0.0",
     "flowbite-react": "^0.6.4",
     "next": "13.5.4",
     "react": "^18",
     "react-bootstrap": "^2.9.0",
+    "react-datepicker": "^4.20.0",
     "react-dom": "^18",
     "react-router-dom": "^6.16.0",
+<<<<<<< HEAD
     "react-youtube": "^10.1.0"
+=======
+    "router": "^1.3.8"
+>>>>>>> 9658ac092c5a4d186b34401a9b5f83bec1a477cf
   },
   "devDependencies": {
     "@types/node": "20.8.4",
