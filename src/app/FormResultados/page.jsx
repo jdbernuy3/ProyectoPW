@@ -1,10 +1,11 @@
 
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import Image from "next/image";
 import TextField from "@mui/material/TextField"
 import { InputAdornment } from "@mui/material/InputAdornment";
-
+import Link from "next/link";
 
 
 const commonStyles = { 
@@ -17,6 +18,8 @@ const commonStyles = {
 
  function FormResultados() { 
 	return ( 
+    <>
+    <MyAppBar> </MyAppBar>
 		<Box style={{ alignSelf: "center" }} textAlign={"center"} sx={{ display: 'flex', justifyContent: 'center' }}> 
 			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px'}} >
       <Typography >Psychology of Computer Programming</Typography>
@@ -26,7 +29,9 @@ const commonStyles = {
       <Typography >ISBN: 00000</Typography>
       <Typography >Author: 09322633420</Typography>
       <Typography >Editor: Adison</Typography>
+      <Link href='/citas'>
       <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
+      </Link>
         </Box>
 
 			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px' }}>
@@ -35,8 +40,9 @@ const commonStyles = {
       <Typography >ISBN: 00000</Typography>
       <Typography >Author: 09322633420</Typography>
       <Typography >Editor: Adison</Typography>
+      <Link href='/citas'>
       <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
-        
+      </Link>  
         </Box>
 			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px' }}>
       <Typography >Psychology of Computer Programming</Typography>
@@ -44,10 +50,13 @@ const commonStyles = {
       <Typography >ISBN: 00000</Typography>
       <Typography >Author: 09322633420</Typography>
       <Typography >Editor: Adison</Typography>
+      <Link href='/citas'>
       <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
+      </Link>
         </Box> 
 		
-		</Box> 
+		</Box>
+    </>
 	); 
   }
 
