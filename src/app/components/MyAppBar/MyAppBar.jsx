@@ -113,7 +113,7 @@ export default function MyAppBar(props) {
                         <a href="/prestamos" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Préstamos</a>
                     </li>
                     <li>
-                        <a href="/citas" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Citas</a>
+                        <a href="/FormResultados" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Citas</a>
                     </li>
                     <li>
                         <a href="/busqueda" class="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Busqueda</a>
