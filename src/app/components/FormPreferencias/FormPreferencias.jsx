@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import usuarioApi from '../../../api/usuario'; //update.
 
 function FormPreferencias({ preferencias, setPreferencias }) {
   const [formPref, setFormPref] = useState({
@@ -30,7 +31,6 @@ function FormPreferencias({ preferencias, setPreferencias }) {
 
     await usuarioApi.update(userFromStorage); 
 
-    // MANDAR A BD
   };
 
   return (

@@ -4,8 +4,8 @@ import usuarioApi from '../../../api/usuario'; //update.
 
 function FormCuenta({cuentaData, setCuentaData} ) {
   const [formAccount, setFormAccount] = useState({
-    correo: '',
-    contraseña: ''
+    correo: cuentaData.correo || '',
+    contraseña: cuentaData.contraseña || ''
   });
 
   const handleChange = (event) => {
@@ -29,7 +29,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
     localStorage.setItem('user', JSON.stringify(userFromStorage));
 
     await usuarioApi.update(userFromStorage); 
-    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+ 
   };
 
   return (
