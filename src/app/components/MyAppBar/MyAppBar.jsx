@@ -32,13 +32,13 @@ export default function MyAppBar(props) {
     useEffect(() => {
         const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
 
-        let esAdmin = false;
-    let esAlumno = false;
+        let esAdministrador = false;
+        let esAlumno = false;
 
     if (userFromStorage.tipoUsuario === 1) {
-        esAdmin = true;
-    } else {
         esAlumno = true;
+    } else {
+        esAdministrador = true;
     }
 
     setEsAdministrador(esAdmin);
