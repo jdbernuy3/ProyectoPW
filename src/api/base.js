@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URI = 'http://localhost:3001'
+const URI = 'https://ggranda-20232-prograweb-as-api.azurewebsites.net/'
 
 const get = async (endpoint) => {
     try {
