@@ -27,24 +27,22 @@ export default function MyAppBar(props) {
     const [esAdministrador, setEsAdministrador] = useState(false); // Inicialmente asumimos que no es administrador
     const [esAlumno, setEsAlumno] = useState(false);
 
-
     const showSidebar = () => setSidebar(!sidebar);
 
     useEffect(() => {
         const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
 
-        if (userFromStorage.tipoUsuario == 1){
-            const usuarioEsAdmin = true;
-            const usuarioEsAlumno = false;
-        }
-        else
-        {
-            const usuarioEsAdmin = false;
-            const usuarioEsAlumno = true;
-        }
+        let esAdmin = false;
+    let esAlumno = false;
 
-        setEsAdministrador(usuarioEsAdmin);
-        setEsAlumno(usuarioEsAlumno);
+    if (userFromStorage.tipoUsuario === 1) {
+        esAdmin = true;
+    } else {
+        esAlumno = true;
+    }
+
+    setEsAdministrador(esAdmin);
+    setEsAlumno(esAlumno);
 
     }, []);
     
