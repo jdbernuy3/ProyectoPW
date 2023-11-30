@@ -20,47 +20,49 @@ const PerfilAdmin = () => {
 
     const [loggedUser, setLoggedUser] = useState(null);
     const [userData, setUserData] = useState({
-        nombre: nombre,
-        tdoc: tdoc,
-        apellido: apellido,
-        nroDoc: nroDoc,
-      });
+        nombre: '',
+        tdoc: '',
+        apellido: '',
+        nroDoc: '',
+    });
     
     const [cuentaData, setCuentaData] = useState({
-        correo: correo,
-        contraseña: contraseña,
+        correo: '',
+        contraseña: '',
     });
     
     const [preferencias, setPreferencias] = useState({
-        idioma: idioma,
-        prefijo: prefijo, 
-        color: color, 
-      });
+        idioma: '',
+        prefijo: '',
+        color: '',
+    });
+    
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem("user"));
+        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
         setLoggedUser(userFromStorage);
-
-        const { nombre, tdoc, apellido, nroDoc, correo, contraseña, idioma, prefijo, color } = userFromStorage || {}; //cambiar por los datos que puede tener el user
+    
+        const { id, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, correo, contrasena, idioma, prefijo, color} = userFromStorage;
     
         setUserData({
-            nombre: nombre || "",
-            tdoc: tdoc || "",
-            apellido: apellido || "",
-            nroDoc: nroDoc || "",
+            nombre: nombres || '',
+            tdoc: idTipoDoc || '',
+            apellido: apellidos || '',
+            nroDoc: nroDoc || '',
         });
     
         setCuentaData({
-            correo: correo || "",
-            contraseña: contraseña || "",
+            correo: correo || '',
+            contraseña: contrasena || '',
         });
     
         setPreferencias({
-            idioma: idioma || "",
-            prefijo: prefijo || "",
-            color: color || "",
+            idioma: idioma || '',
+            prefijo: prefijo || '',
+            color: color || '',
         });
     }, []);
+    
         
 
       const [openDialog, setOpenDialog] = useState(false);

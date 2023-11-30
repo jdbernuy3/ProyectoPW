@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import usuarioApi from '../../../api/usuario'; //update.
 
 function FormCuenta({cuentaData, setCuentaData} ) {
   const [formAccount, setFormAccount] = useState({
@@ -12,11 +13,22 @@ function FormCuenta({cuentaData, setCuentaData} ) {
     setFormAccount({ ...formAccount, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+
     console.log('Datos antiguos', cuentaData);
     console.log('Nuevos Datos:', formAccount);
+
     setCuentaData(formAccount);
+
+    userFromStorage.correo = formAccount.correo || userFromStorage.correo;
+    userFromStorage.contrasena = formAccount.contraseña || userFromStorage.contrasena;
+  
+    localStorage.setItem('user', JSON.stringify(userFromStorage));
+
+    await usuarioApi.update(userFromStorage); 
     // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
   };
 

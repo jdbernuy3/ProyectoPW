@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import usuarioApi from '../../../api/usuario';
+import usuarioApi from '../../../api/usuario'; //update.
 
 function FormDatosPersonales({userData, setUserData}) {
   const [formData, setFormData] = useState({
@@ -19,15 +19,24 @@ function FormDatosPersonales({userData, setUserData}) {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+
     console.log('Datos Antiguos:', userData);
     console.log('Nuevos Datos:', formData);
     setUserData(formData);
-    const updatedUserInStorage = { ...userData, ...formData };
-    localStorage.setItem('user', JSON.stringify(updatedUserInStorage))
 
-    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+    userFromStorage.nombre = formData.nombre || userFromStorage.nombre;
+    userFromStorage.idTipoDoc = formData.tdoc || userFromStorage.tdoc;
+    userFromStorage.apellido = formData.apellido || userFromStorage.apellido;
+    userFromStorage.nroDoc = formData.nroDoc || userFromStorage.nroDoc;
+
+    localStorage.setItem('user', JSON.stringify(userFromStorage)); //actualziado en local Storage, falta mandar a BD.
+
+    await usuarioApi.update(userFromStorage); 
+
+    
   };
 
   return (
