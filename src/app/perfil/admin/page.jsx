@@ -36,27 +36,7 @@ const PerfilAdmin = () => {
         color: '3', 
       });
 
-    /*
-    const [userData, setUserData] = useState({
-        nombre: users[1].nombre,
-        tdoc: users[1].TipoDocumento,
-        apellido: users[1].apellidos,
-        nroDoc: users[1].NroDocumento,
-      });
-    
-    const [cuentaData, setCuentaData] = useState({
-        correo: users[1].correo,
-        contraseña: users[1].contrasena,
-    });
-    
-    const [preferencias, setPreferencias] = useState({
-        idioma: users[1].idioma,
-        prefijo: users[1].prefijo, 
-        color: users[1].color, 
-      });
-
-    */
-      
+     
 
     const tabs = [
         {

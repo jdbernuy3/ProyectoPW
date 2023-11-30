@@ -25,7 +25,7 @@ export default function MyAppBar(props) {
 
     const [sidebar, setSidebar] = useState(true);
     const [esAdministrador, setEsAdministrador] = useState(false); // Inicialmente asumimos que no es administrador
-
+    
     const showSidebar = () => setSidebar(!sidebar);
 
     useEffect(() => {
@@ -45,6 +45,7 @@ export default function MyAppBar(props) {
         const usuarioEsAlumno = true; // Si esto es firme, cambia a admin
 
         setEsAlumno(usuarioEsAlumno);
+
     }, []);
     return (
         <>
