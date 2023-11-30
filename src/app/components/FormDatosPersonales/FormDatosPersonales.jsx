@@ -4,22 +4,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import usuarioApi from '../../../api/usuario';
 
 function FormDatosPersonales({userData, setUserData}) {
   const [formData, setFormData] = useState({
-    nombre: '',
-    tdoc: '', // Inicializamos tdoc en un valor vacío
-    apellido: '',
-    nroDoc: ''
+    nombre: userData.nombre || '',
+    tdoc: userData.tdoc || '',
+    apellido: userData.apellido || '',
+    nroDoc: userData.nroDoc || '',
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'tdoc') {
-      setFormData({ ...formData, tdoc: value }); // Actualizamos tdoc
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (event) => {
@@ -27,6 +24,9 @@ function FormDatosPersonales({userData, setUserData}) {
     console.log('Datos Antiguos:', userData);
     console.log('Nuevos Datos:', formData);
     setUserData(formData);
+    const updatedUserInStorage = { ...userData, ...formData };
+    localStorage.setItem('user', JSON.stringify(updatedUserInStorage))
+
     // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
   };
 
