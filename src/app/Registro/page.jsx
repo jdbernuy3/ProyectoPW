@@ -42,6 +42,9 @@ function Registro() {
         localStorage.setItem("formData", JSON.stringify(formData));
     };
 
+
+
+
     const handleRegistro = () => {
         const newUser = {
             id: users.length + 1,
@@ -65,17 +68,15 @@ function Registro() {
     };
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold text-center" style={{ marginBottom: "10px" }}>
-                Sistema de reserva de libros
-            </h1>
-            <h2 className="text-2xl font-semibold text-center">Registro de usuario</h2>
-            <form className="text-left flex justify-center">
-                <div className="w-1/2 p-4" style={{ marginRight: "-300px" }}>
+        <div className="text-center">
+            <h1 className="text-3xl font-bold mb-2">Sistema de reserva de libros</h1>
+            <h2 className="text-2xl font-semibold">Registro de usuario</h2>
+            <form className="flex flex-wrap justify-center">
+                <div className="flex-1 p-4">
                     {/* Columna de Datos Personales */}
                     <h3 className="font-bold text-[#5D2388]">Datos Personales</h3>
                     <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: '80%' }}
                         label="Nombres"
                         name="nombres"
                         color="secondary"
@@ -87,7 +88,7 @@ function Registro() {
                         onChange={handleInputChange}
                     />
                     <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: '80%' }}
                         label="Apellidos"
                         name="apellidos"
                         color="secondary"
@@ -98,36 +99,37 @@ function Registro() {
                         value={formData.apellidos}
                         onChange={handleInputChange}
                     />
+                    <select
+                        style={{ width: '80%' }}
+                        id="TipoDocumento"
+                        className="border-2 border-[#9C27B0] text-[#9C27B0] text-sm rounded-md focus:ring-[#9C27B0] focus:border-[#9C27B0] mt-2 "
+                    >
+                        <option value="" disabled selected>
+                            Tipo de Documento
+                        </option>
+                        <option value="dni">DNI</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                    </select>
+
                     <TextField
-                        style={{ width: "500px" }}
-                        label="Tipo de Documento"
-                        name="tipoDocumento"
-                        color="secondary"
-                        variant="outlined"
-                        focused
-                        fullWidth
-                        margin="normal"
-                        value={formData.tipoDocumento}
-                        onChange={handleInputChange}
-                    />
-                    <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: "80%" }}
                         label="Nro de Documento"
                         name="numeroDocumento"
                         color="secondary"
                         variant="outlined"
                         focused
                         fullWidth
+                        type="number"
                         margin="normal"
                         value={formData.numeroDocumento}
                         onChange={handleInputChange}
                     />
                 </div>
-                <div className="w-1/2 p-4" style={{ marginRight: "-300px" }}>
+                <div className="flex-1 p-4">
                     {/* Columna de Datos de Cuenta */}
                     <h3 className="font-bold text-[#5D2388]">Datos de Cuenta</h3>
                     <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: '80%' }}
                         label="Correo Electrónico"
                         name="correo"
                         color="secondary"
@@ -139,7 +141,7 @@ function Registro() {
                         onChange={handleInputChange}
                     />
                     <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: '80%' }}
                         label="Password"
                         name="contraseña"
                         color="secondary"
@@ -152,7 +154,7 @@ function Registro() {
                         onChange={handleInputChange}
                     />
                     <TextField
-                        style={{ width: "500px" }}
+                        style={{ width: '80%' }}
                         label="Ingresar Password nuevamente"
                         color="secondary"
                         variant="outlined"
@@ -163,17 +165,21 @@ function Registro() {
                         value={formData.contraseña}
                         onChange={handleInputChange}
                     />
+                    {/* Otros campos TextField para Datos de Cuenta */}
                 </div>
             </form>
-            <Link href="/Login">
-                <input
-                    type="button"
-                    value="Registrar"
-                    style={{ marginLeft: "1050px", width: "400px" }}
-                    className="bg-[#EBC7F5] hover:bg-[#DD96F1] text-black font-bold py-2 px-4 rounded-full focus:ring-0"
-                    onClick={handleRegistro}
-                />
-            </Link>
+            <div className="flex justify-center mt-4">
+                <Link href="/Login" className="block text-center mt-4">
+                    <input
+                        type="button"
+                        value="Registrar"
+                        className="bg-[#EBC7F5] hover:bg-[#DD96F1] text-black font-bold py-2 px-4 rounded-full focus:ring-0"
+                        onClick={handleRegistro}
+                    />
+                </Link>
+            </div>
+
+
         </div>
     );
 }

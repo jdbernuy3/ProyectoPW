@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import users from "src/data/users";
 import SimpleCard from "@/app/components/SimpleCard/SimpleCard"
+import CardBook from '@/app/components/CardBook/CardBook';
 const booksData = [
     {
       id: 1,
@@ -33,7 +34,21 @@ const booksData = [
       title: "Matar a un ruiseñor",
       author: "Harper Lee",
       coverImage: "https://bookvivant.com/cdn/shop/products/BOOVI-7856_9780718076375_580x.jpg?v=1656722136",
-    }
+    },
+    {
+      id: 5,
+      title: "Matar a un ruiseñor",
+      author: "Harper Lee",
+      coverImage: "https://bookvivant.com/cdn/shop/products/BOOVI-7856_9780718076375_580x.jpg?v=1656722136",
+    },
+    {
+      id: 5,
+      title: "Matar a un ruiseñor",
+      author: "Harper Lee",
+      coverImage: "https://bookvivant.com/cdn/shop/products/BOOVI-7856_9780718076375_580x.jpg?v=1656722136",
+    },
+    
+    
   
   ];
 
@@ -58,22 +73,24 @@ const booksData = [
   
     return (
       <>
-        <section style={{ backgroundColor: "#DFCCE3" }}>
-          <MyAppBar />
-          <div style={{ marginLeft: "180px", backgroundColor: "#f2f2f2", minHeight: "100vh", padding: "20px",backgroundColor: "#DFCCE3"  }}>
-            <h2 className="text-3xl font-bold text-left" style={{marginBottom:"10px"}}>{mensajeBienvenida}</h2>
-            
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              {booksData.map((book) => (
-                <div key={book.id} className="m-4 p-4 border border-gray-300 rounded-lg max-w-xs" style={{ width: "500px", height: "470px",backgroundColor: "white" }}>
-                  <img className="object-cover w-full h-40 rounded-lg mb-4" src={book.coverImage} alt={book.title} style={{ height: "350px" }} />
-                  <h3 className="text-xl font-semibold">{book.title}</h3>
-                  <p className="text-gray-700">{book.author}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section className="bg-[#DFCCE3]">
+  <MyAppBar />
+  <div className="ml-4 md:ml-20 lg:ml-32 bg-[#f2f2f2] min-h-screen p-4">
+    <h2 className="text-3xl font-bold text-left mb-4 ml-12">{mensajeBienvenida}</h2>
+    <div className="flex flex-wrap justify-center">
+      {booksData.map((book) => (
+          <CardBook
+            key={book.id}
+            id={book.id}
+            coverImage={book.coverImage}
+            title={book.title}
+            author={book.author}
+          />
+        ))}
+    </div>
+  </div>
+</section>
+
       </>
     );
   }
