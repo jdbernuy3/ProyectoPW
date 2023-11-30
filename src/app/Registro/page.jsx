@@ -1,10 +1,13 @@
 'use client';
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
-
+import api from "@/api/usuario";
 
 function Registro() {
     
+    function navigate() {
+        window.location.href = '/Login';
+      }
 
     const [formData, setFormData] = useState({
         nombres: "",
@@ -24,44 +27,54 @@ function Registro() {
     };
 
     const handleRegistro = async () => {
+        // Validar que todos los campos estén llenos
+        if (
+            !formData.nombres ||
+            !formData.apellidos ||
+            !formData.idTipoDoc ||
+            !formData.nroDoc ||
+            !formData.correo ||
+            !formData.contrasena
+        ) {
+            alert('Por favor, completa todos los campos');
+            return;
+        }
+    
         try {
-            const response = await fetch('https://ggranda-20232-prograweb-as-api.azurewebsites.net/usuario', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    nombres: formData.nombres,
-                    apellidos: formData.apellidos,
-                    idTipoUsuario: 1,
-                    idTipoDoc: formData.idTipoDoc,
-                    nroDoc: formData.nroDoc,
-                    correo: formData.correo,
-                    contrasena: formData.contrasena,
-                    tipo: 'alumno',
-                }),
+            // Llamada a la API para crear un nuevo usuario
+            const response = await api.create({
+                nombres: formData.nombres,
+                apellidos: formData.apellidos,
+                idTipoUsuario: 1,
+                idTipoDoc: formData.idTipoDoc,
+                nroDoc: formData.nroDoc,
+                correo: formData.correo,
+                contrasena: formData.contrasena,
+                tipo: 'alumno',
             });
-
-            if (!response.ok) {
-                throw new Error(`Error al registrar usuario - ${response.status}`);
+    
+            if (!response) {
+                throw new Error('Error al registrar usuario');
             }
-
+    
             // Restablecer el formulario después del registro
             setFormData({
-                nombres: "",
-                apellidos: "",
-                idTipoDoc: "",
-                nroDoc: "",
-                correo: "",
-                contrasena: "",
+                nombres: '',
+                apellidos: '',
+                idTipoDoc: '',
+                nroDoc: '',
+                correo: '',
+                contrasena: '',
             });
-
+    
             // Redirigir a la página de login
-            navigate('/Login');
+            alert('Registro Exitoso');
+            navigate();
         } catch (error) {
             console.error('Error al registrar usuario:', error);
         }
     };
+    
 
     return (
         <div className="text-center">

@@ -1,25 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
-import users from "src/data/users";
-import SimpleCard from "@/app/components/SimpleCard/SimpleCard"
 import CardBook from '@/app/components/CardBook/CardBook';
 
   function Inicio_Alumno() {
-    //const [usuario, setUsuario] = useState("");
+    
     const [libros, setLibros] = useState([]);
   
-    // useEffect(() => {
-    //   // Obtener el último usuario del arreglo `users`
-    //   const lastUser = users[users.length - 1];
-      
-    //   // Extraer el nombre y apellido del usuario si existen en el arreglo
-    //   if (lastUser && lastUser.nombre && lastUser.apellido) {
-    //     setUsuario(`${lastUser.nombre} ${lastUser.apellido}`);
-    //   }
-    // }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez al montar el componente
-    
-    // Hacer la solicitud a la API usando fetch
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -43,10 +30,6 @@ import CardBook from '@/app/components/CardBook/CardBook';
       fetchData();
     }, []);
 
-    // Decidir qué mensaje de bienvenida mostrar
-    // const mensajeBienvenida = usuario
-    //   ? `Bienvenido: ${usuario}`
-    //   : "Bienvenido";
   
     return (
       <>
