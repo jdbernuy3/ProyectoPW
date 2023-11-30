@@ -1,70 +1,66 @@
-'use client'
-import React, { useState, useEffect } from "react";
+'use client';
+import React, { useState } from "react";
 import { TextField } from "@mui/material";
-import Link from "next/link";
-import users from "src/data/users";
 
-const initialFormData = {
-    nombre: "",
-    apellidos: "",
-    TipoDocumento: "",
-    NroDocumento: "",
-    correo: "",
-    contraseña: "",
-};
 
 function Registro() {
-    const [formData, setFormData] = useState(initialFormData);
+    
 
-    useEffect(() => {
-        // Cargar datos desde el localStorage cuando se monta el componente
-        const storedFormData = JSON.parse(localStorage.getItem("formData"));
-        if (storedFormData) {
-            setFormData(storedFormData);
-        }
-
-        // Guardar datos en localStorage cuando la página se está cerrando o recargando
-        window.addEventListener("beforeunload", handleBeforeUnload);
-
-        // Limpiar el evento antes de que el componente se desmonte
-        return () => {
-            window.removeEventListener("beforeunload", handleBeforeUnload);
-        };
-    }, []); // El segundo argumento [] asegura que este efecto se ejecute solo una vez al montar el componente
+    const [formData, setFormData] = useState({
+        nombres: "",
+        apellidos: "",
+        idTipoDoc: "", // Cambié el nombre de TipoDocumento a idTipoDoc para coincidir con el formulario
+        nroDoc: "",
+        correo: "",
+        contrasena: "",
+    });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
-    const handleBeforeUnload = () => {
-        // Guardar datos en localStorage antes de cerrar o recargar la página
-        localStorage.setItem("formData", JSON.stringify(formData));
-    };
+    const handleRegistro = async () => {
+        try {
+            const response = await fetch('https://ggranda-20232-prograweb-as-api.azurewebsites.net/usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nombres: formData.nombres,
+                    apellidos: formData.apellidos,
+                    idTipoUsuario: 1,
+                    idTipoDoc: formData.idTipoDoc,
+                    nroDoc: formData.nroDoc,
+                    correo: formData.correo,
+                    contrasena: formData.contrasena,
+                    tipo: 'alumno',
+                }),
+            });
 
+            if (!response.ok) {
+                throw new Error(`Error al registrar usuario - ${response.status}`);
+            }
 
+            // Restablecer el formulario después del registro
+            setFormData({
+                nombres: "",
+                apellidos: "",
+                idTipoDoc: "",
+                nroDoc: "",
+                correo: "",
+                contrasena: "",
+            });
 
-
-    const handleRegistro = () => {
-        const newUser = {
-            id: users.length + 1,
-            nombre: formData.nombres,
-            apellido: formData.apellidos,
-            TipoDocumento: formData.tipoDocumento,
-            NroDocumento: formData.numeroDocumento,
-            correo: formData.correo,
-            contraseña: formData.contraseña,
-            tipo: "alumno",
-        };
-
-        // Actualizar el estado del array de usuarios
-        const updatedUsers = [...users, newUser];
-        // Almacenar en localStorage
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-        // Actualizar el archivo users.js (opcional, dependiendo de tu configuración)
-
-        // Restablecer el formulario después del registro
-        setFormData(initialFormData);
+            // Redirigir a la página de login
+            navigate('/Login');
+        } catch (error) {
+            console.error('Error al registrar usuario:', error);
+        }
     };
 
     return (
@@ -103,25 +99,28 @@ function Registro() {
                         style={{ width: '80%' }}
                         id="TipoDocumento"
                         className="border-2 border-[#9C27B0] text-[#9C27B0] text-sm rounded-md focus:ring-[#9C27B0] focus:border-[#9C27B0] mt-2 "
+                        name="idTipoDoc"
+                        value={formData.idTipoDoc}
+                        onChange={handleInputChange}
                     >
-                        <option value="" disabled selected>
+                        <option value="" disabled defaultValue>
                             Tipo de Documento
                         </option>
-                        <option value="dni">DNI</option>
-                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="1">DNI</option>
+                        <option value="2">Pasaporte</option>
                     </select>
 
                     <TextField
                         style={{ width: "80%" }}
                         label="Nro de Documento"
-                        name="numeroDocumento"
+                        name="nroDoc"
                         color="secondary"
                         variant="outlined"
                         focused
                         fullWidth
                         type="number"
                         margin="normal"
-                        value={formData.numeroDocumento}
+                        value={formData.nroDoc}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -143,14 +142,14 @@ function Registro() {
                     <TextField
                         style={{ width: '80%' }}
                         label="Password"
-                        name="contraseña"
+                        name="contrasena"
                         color="secondary"
                         variant="outlined"
                         focused
                         type="password"
                         fullWidth
                         margin="normal"
-                        value={formData.contraseña}
+                        value={formData.contrasena}
                         onChange={handleInputChange}
                     />
                     <TextField
@@ -162,24 +161,20 @@ function Registro() {
                         type="password"
                         fullWidth
                         margin="normal"
-                        value={formData.contraseña}
+                        value={formData.contrasena}
                         onChange={handleInputChange}
                     />
                     {/* Otros campos TextField para Datos de Cuenta */}
                 </div>
             </form>
             <div className="flex justify-center mt-4">
-                <Link href="/Login" className="block text-center mt-4">
-                    <input
-                        type="button"
-                        value="Registrar"
-                        className="bg-[#EBC7F5] hover:bg-[#DD96F1] text-black font-bold py-2 px-4 rounded-full focus:ring-0"
-                        onClick={handleRegistro}
-                    />
-                </Link>
+                <input
+                    type="button"
+                    value="Registrar"
+                    className="bg-[#EBC7F5] hover:bg-[#DD96F1] text-black font-bold py-2 px-4 rounded-full focus:ring-0"
+                    onClick={handleRegistro}
+                />
             </div>
-
-
         </div>
     );
 }
