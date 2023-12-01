@@ -66,6 +66,7 @@ const PerfilEstudiante = () => {
 
     const [openDialog, setOpenDialog] = useState(false);
     const [profileImage, setProfileImage] = useState('https://creazilla-store.fra1.digitaloceanspaces.com/emojis/49420/man-student-emoji-clipart-md.png');
+    //cambiar la de arriba para que ponga la imagen del usuario logeado, y si no tiene una ponga una por defecto.
     const [favoriteMusicLink, setFavoriteMusicLink] = useState(''); // Estado para el enlace de música favorita
 
     const handleOpenDialog = () => {

@@ -29,6 +29,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
     localStorage.setItem('user', JSON.stringify(userFromStorage));
 
     await usuarioApi.update(userFromStorage); 
+    alert('Se han modificado los datos de cuenta');
  
   };
 

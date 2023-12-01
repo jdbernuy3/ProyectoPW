@@ -48,6 +48,7 @@ function FormDatosPersonales({userData, setUserData}) {
     localStorage.setItem('user', JSON.stringify(userFromStorage)); //actualziado en local Storage, falta mandar a BD.
 
     await usuarioApi.update(userFromStorage); 
+    alert('Se han modificado los datos personales.');
     
   };
 

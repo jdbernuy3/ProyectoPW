@@ -30,6 +30,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
     localStorage.setItem('user', JSON.stringify(userFromStorage));
 
     await usuarioApi.update(userFromStorage); 
+    alert('Se han modificado las preferencias.');
 
   };
 
