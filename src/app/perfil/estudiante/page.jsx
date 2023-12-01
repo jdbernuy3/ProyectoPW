@@ -17,11 +17,12 @@ import React, { useState, useEffect } from 'react';
 
 const PerfilEstudiante = () => {
 
+    const [loggedUser, setLoggedUser] = useState(null);
     const [userData, setUserData] = useState({
         nombre: '',
-        tdoc: 'DNI',
+        tdoc: '',
         apellido: '',
-        nroDoc: '2131',
+        nroDoc: '',
       });
     
     const [cuentaData, setCuentaData] = useState({
