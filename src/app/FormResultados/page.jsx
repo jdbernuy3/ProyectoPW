@@ -1,102 +1,55 @@
-
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-
+'use client'
+// FormResultados.jsx
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
-import Image from "next/image";
-import TextField from "@mui/material/TextField"
-import { InputAdornment } from "@mui/material/InputAdornment";
-import Link from "next/link";
+import CardReserva from "../components/CardReseva/CardReseva";
+import React, { useEffect, useState } from 'react';
 
+function FormResultados() {
+  const [libros, setLibros] = useState([]);
 
-const commonStyles = { 
-	bgcolor: 'background.paper', 
-	m: 1, 
-	border: 2, 
-	width: '20rem', 
-	height: '20rem', 
-}; 
-
- function FormResultados() { 
-	return ( 
-    <>
-    <MyAppBar> </MyAppBar>
-		<Box style={{ alignSelf: "center" }} textAlign={"center"} sx={{ display: 'flex', justifyContent: 'center' }}> 
-			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px'}} >
-      <Typography >Psychology of Computer Programming</Typography>
-        <img inline-block className='h-40 w-40'
-         src="https://images.cdn2.buscalibre.com/fit-in/180x180/1f/a6/1fa666e0f93fb0bc63c4c214188f3a46.jpg"
-
-         ></img>
-      <Typography >ISBN: 00000</Typography>
-      <Typography >Author: 09322633420</Typography>
-      <Typography >Editor: Adison</Typography>
-      <Link href='/citas'>
-      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
-      </Link>
-        </Box>
-
-			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px' }}>
-      <Typography >Psychology of Computer Programming</Typography>
-        <img inline-block className='h-40 w-40' src="https://images.cdn3.buscalibre.com/fit-in/180x180/f8/78/f878362b2a6c71f5e7125eafff09a82c.jpg"></img>
-      <Typography >ISBN: 00000</Typography>
-      <Typography >Author: 09322633420</Typography>
-      <Typography >Editor: Adison</Typography>
-      <Link href='/citas'>
-      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
-      </Link>  
-        </Box>
-			<Box sx={{ ...commonStyles, borderColor: 'grey.500','borderRadius':'5px' }}>
-      <Typography >Psychology of Computer Programming</Typography>
-        <img inline-block className='h-40 w-40' src="https://images.cdn1.buscalibre.com/fit-in/180x180/b2/4f/b24f5a1c7adddcc154ad324483235c72.jpg"></img>
-        <Typography >ISBN: 00000</Typography>
-      <Typography >Author: 09322633420</Typography>
-      <Typography >Editor: Adison</Typography>
-      <Link href='/citas'>
-      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
-      </Link>
-        </Box> 
-		
-		</Box>
-    </>
-	); 
-  }
-
-  export default FormResultados
-
-  
-  /*
-  function FormResultados() {
-    return (
-        <>
-        <div>
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://ggranda-20232-prograweb-as-api.azurewebsites.net/libro');
         
+        if (!response.ok) {
+          throw new Error(`Error de red - ${response.status}`);
+        }
 
+        const data = await response.json();
+        console.log('Data recibida de la API:', data);
 
-            <div>
-         <Box>
-         <Typography >Psychology of Computer Programming</Typography>
-        <img className='h-10 w-10' src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/49420/man-student-emoji-clipart-md.png"></img>
-      <Typography >ISBN: 00000</Typography>
-      <Typography >Author: 09322633420</Typography>
-      <Typography >Editor: Adison</Typography>
-      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
+        // Actualizar el estado con los libros recibidos de la API
+        setLibros(data);
+      } catch (error) {
+        console.error('Error al obtener datos de la API:', error);
+      }
+    };
 
-    </Box>
+    // Llamar a la función fetchData
+    fetchData();
+  }, []);
 
+  return (
+    <>
+      <MyAppBar />
+      <div className="ml-4 md:ml-20 lg:ml-32 bg-[#f2f2f2] min-h-screen p-4">
+        <h2 className="text-3xl font-bold text-left mb-4 ml-12">mensajeBienvenida</h2>
+        <div className="flex flex-wrap justify-center">
+          {libros.map((book) => (
+            <CardReserva
+              key={book.id}
+              id={book.id}
+              coverImage={book.imagenPortadaUrl}
+              isbn13={book.isbn13}
+              author={book.autor}
+              vecesReservado={book.vecesReservado}
+            />
+          ))}
         </div>
-        <div>
-         <Box>
-         <Typography >Psychology of Computer Programming</Typography>
-        <img className='h-10 w-10' src="https://creazilla-store.fra1.digitaloceanspaces.com/emojis/49420/man-student-emoji-clipart-md.png"></img>
-      <Typography >ISBN: 00000</Typography>
-      <Typography >Author: 09322633420</Typography>
-      <Typography >Editor: Adison</Typography>
-      <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-2 rounded-full focus:ring-0" >Reservar</button>
+      </div>
+    </>
+  );
+}
 
-    </Box>
-
-        </div>
-        </div>
-        </>
-    */
+export default FormResultados;
