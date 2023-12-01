@@ -78,15 +78,7 @@ export default function MyAppBar(props) {
             </ThemeProvider>
             <div className={`top-18 left-0 w-24vw bg-[#D9D9D9] py-5 px-2 text-white fixed h-full z-40 ease-in-out duration-300 ${sidebar ? "translate-x-0" : "-translate-x-full"
                 }`}>
-                <ul className="space-y-2 font-medium">
-                    <li>
-                    {esAlumno ? (
-                            <a href="/inicio/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10 mt-4">Inicio</a>
-                            ) : (
-                            <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Inicio</a>
-                            )}
-
-                    </li>
+                <ul className="space-y-2 font-medium mt-16">
                     <li>
                     {esAdministrador ? (
                             <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
@@ -102,19 +94,25 @@ export default function MyAppBar(props) {
                             )}
                     </li>
                     <li>
-                        <a href="/biblioteca" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Bibliotecas</a>
+                        <a href="/biblioteca" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Biblioteca</a>
                     </li>
-                    <li>
+                    {
+                        /*
+                        <li>
                         <a href="/horarios" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Horarios</a>
-                    </li>
+                        </li>
+                        <li>
+                        <a href="/biblioteca" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Citas</a>
+                        </li>
+                         */
+                    }
+                    
                     <li>
                         <a href="/prestamos" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Préstamos</a>
                     </li>
+                    
                     <li>
-                        <a href="/FormResultados" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Citas</a>
-                    </li>
-                    <li>
-                        <a href="/busqueda" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Busqueda</a>
+                        <a href="/busqueda" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Búsqueda</a>
                     </li>
                 </ul>
                 <p className="text-black bottom-20 absolute">Biblio v1.0.1-alpha</p>
