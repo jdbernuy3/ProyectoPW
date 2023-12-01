@@ -35,7 +35,6 @@ function FormDatosPersonales({userData, setUserData}) {
     localStorage.setItem('user', JSON.stringify(userFromStorage)); //actualziado en local Storage, falta mandar a BD.
 
     await usuarioApi.update(userFromStorage); 
-
     
   };
 
@@ -51,6 +50,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="nombre"
                 name="nombre"
+                defaultValue={formData.nombre}
                 value={formData.nombre}
                 onChange={handleChange}
               />
@@ -79,6 +79,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="apellido"
                 name="apellido"
+                defaultValue={formData.apellido}
                 value={formData.apellido}
                 onChange={handleChange}
               />
@@ -90,6 +91,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="nroDoc"
                 name="nroDoc"
+                defaultValue={formData.nroDoc}
                 value={formData.nroDoc}
                 onChange={handleChange}
               />

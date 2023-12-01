@@ -45,6 +45,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="idioma"
                 name="idioma"
+                defaultValue={formPref.idioma}
                 value={formPref.idioma}
                 onChange={handleChange}
               />
@@ -56,6 +57,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="prefijo"
                 name="prefijo"
+                defaultValue={formPref.prefijo}
                 value={formPref.prefijo}
                 onChange={handleChange} 
               />
@@ -67,6 +69,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="color"
                 name="color"
+                defaultValue={formPref.color}
                 value={formPref.color}
                 onChange={handleChange} 
               />
