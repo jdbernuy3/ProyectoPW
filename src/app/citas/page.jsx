@@ -189,7 +189,7 @@ function Citas() {
                                 La reserva del recurso se ha realizado con éxito. Este debe ser devuelto hasta el día {selectedDates}.
                             </p>
                             <div className="flex justify-center">
-                                <Link href="/FormResultados">
+                                <Link href="/biblioteca">
                                     <button onClick={hideModal} className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
                                         Ok
                                     </button>
