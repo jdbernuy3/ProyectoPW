@@ -24,6 +24,18 @@ function FormDatosPersonales({userData, setUserData}) {
     event.preventDefault();
     const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
 
+    if (formData.tdoc !== '1' && formData.tdoc !== '2') {
+      alert('No se actualizaron los datos. Tipo de documento no seleccionado.');
+      return;
+    }
+
+    const isNroDocValid = /^\d+$/.test(formData.nroDoc); // Check if nroDoc contains only numeric characters
+
+    if (!isNroDocValid) {
+      alert('No se actualizaron los datos. El número de documento debe contener solo dígitos.');
+      return;
+    }
+
     console.log('Datos Antiguos:', userData);
     console.log('Nuevos Datos:', formData);
     setUserData(formData);
