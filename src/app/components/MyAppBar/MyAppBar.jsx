@@ -19,8 +19,6 @@ const theme = createTheme({
     },
 });
 
-
-
 export default function MyAppBar(props) {
 
     const [sidebar, setSidebar] = useState(true);
@@ -33,16 +31,16 @@ export default function MyAppBar(props) {
         const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
 
         let esAdmin = false;
-        let esAlumn = false;
+        let esAlum = false;
 
     if (userFromStorage.tipoUsuario === 1) {
-        esAlumn = true;
+        esAlum = true;
     } else {
         esAdmin = true;
     }
 
     setEsAdministrador(esAdmin);
-    setEsAlumno(esAlumn);
+    setEsAlumno(esAlum);
 
     }, []);
     
@@ -50,7 +48,7 @@ export default function MyAppBar(props) {
         <>
             <ThemeProvider theme={theme}>
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static" color="primary">
+                    <AppBar position="fixed" color="primary">
                         <Toolbar>
                             <IconButton
                                 size="large"
@@ -83,7 +81,7 @@ export default function MyAppBar(props) {
                 <ul className="space-y-2 font-medium">
                     <li>
                     {esAlumno ? (
-                            <a href="/inicio/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
+                            <a href="/inicio/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10 mt-4">Inicio</a>
                             ) : (
                             <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Inicio</a>
                             )}

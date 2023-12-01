@@ -40,8 +40,8 @@ function FormInsertarRecursoBusqueda() {
            
         </div>
         <div className='text-right'>
-        <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0" >Limpiar</button>
-            <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Buscar</button>
+        <button classname="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0" >Limpiar</button>
+            <button classname="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Buscar</button>
 
         </div>
         </>

@@ -9,7 +9,7 @@ import usuarioApi from '../../../api/usuario'; //update.
 function FormDatosPersonales({userData, setUserData}) {
   const [formData, setFormData] = useState({
     nombre: userData.nombre || '',
-    tdoc: userData.tdoc || '',
+    tdoc: '',
     apellido: userData.apellido || '',
     nroDoc: userData.nroDoc || '',
   });
@@ -19,23 +19,35 @@ function FormDatosPersonales({userData, setUserData}) {
     setFormData({ ...formData, [name]: value });
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+
+    if (formData.tdoc !== '1' && formData.tdoc !== '2') {
+      alert('No se actualizaron los datos. Tipo de documento no seleccionado.');
+      return;
+    }
+
+    const isNroDocValid = /^\d+$/.test(formData.nroDoc); // Check if nroDoc contains only numeric characters
+
+    if (!isNroDocValid) {
+      alert('No se actualizaron los datos. El número de documento debe contener solo dígitos.');
+      return;
+    }
 
     console.log('Datos Antiguos:', userData);
     console.log('Nuevos Datos:', formData);
     setUserData(formData);
 
-    userFromStorage.nombre = formData.nombre || userFromStorage.nombre;
+    userFromStorage.nombres = formData.nombre || userFromStorage.nombre;
     userFromStorage.idTipoDoc = formData.tdoc || userFromStorage.tdoc;
-    userFromStorage.apellido = formData.apellido || userFromStorage.apellido;
+    userFromStorage.apellidos = formData.apellido || userFromStorage.apellido;
     userFromStorage.nroDoc = formData.nroDoc || userFromStorage.nroDoc;
 
     localStorage.setItem('user', JSON.stringify(userFromStorage)); //actualziado en local Storage, falta mandar a BD.
 
     await usuarioApi.update(userFromStorage); 
-
     
   };
 
@@ -51,6 +63,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="nombre"
                 name="nombre"
+                defaultValue={formData.nombre} //cambiar a userfromStorage.
                 value={formData.nombre}
                 onChange={handleChange}
               />
@@ -62,13 +75,12 @@ function FormDatosPersonales({userData, setUserData}) {
                   labelId="demo-simple-select-label"
                   id="tdoc"
                   name="tdoc"
-                  value={formData.tdoc}
                   label="Tipo de Documento"
                   variant="outlined"
                   onChange={handleChange}
                 >
-                  <MenuItem value="DNI">DNI</MenuItem>
-                  <MenuItem value="Pasaporte">Pasaporte</MenuItem>
+                  <MenuItem value="1">DNI</MenuItem>
+                  <MenuItem value="2">Pasaporte</MenuItem>
                 </Select>
               </FormControl>
             </li>
@@ -79,6 +91,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="apellido"
                 name="apellido"
+                defaultValue={formData.apellido} //cambiar a userfromStorage.
                 value={formData.apellido}
                 onChange={handleChange}
               />
@@ -90,6 +103,7 @@ function FormDatosPersonales({userData, setUserData}) {
                 type="text"
                 id="nroDoc"
                 name="nroDoc"
+                defaultValue={formData.nroDoc} //cambiar a userfromStorage.
                 value={formData.nroDoc}
                 onChange={handleChange}
               />

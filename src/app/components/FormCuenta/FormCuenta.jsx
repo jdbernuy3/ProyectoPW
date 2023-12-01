@@ -44,6 +44,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
                 type="text"
                 id="correo"
                 name="correo"
+                defaultValue={formAccount.correo} //cambiar a userfromStorage.
                 value={formAccount.correo}
                 onChange={handleChange}
               />
@@ -55,6 +56,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
                 type="password"
                 id="contraseña"
                 name="contraseña"
+                defaultValue={formAccount.contraseña} //cambiar a userfromStorage.
                 value={formAccount.contraseña}
                 onChange={handleChange}
               />
