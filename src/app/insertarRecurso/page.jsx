@@ -16,12 +16,12 @@ function InsertarRecurso() {
     return (
         <>
             <MyAppBar></MyAppBar>
-            <div className="bg-white h-100v w-100v pl-52 pr-8">
+            <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
                 <h1 className="pt-10 text-4xl">Hola, Juliana</h1>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
 
                 <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
-                    <img className='pr-20'src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg"></img>
+                    <img className='px-20 pt-10 max-h-96'src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/ULIMA_2019.jpg/1200px-ULIMA_2019.jpg"></img>
                     <div className="">
                         <MyTabPanel tabs={tabs}></MyTabPanel>
                     </div>

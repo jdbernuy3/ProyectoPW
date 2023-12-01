@@ -12,6 +12,8 @@ const create = async (payload) => await base.post(endpoint, payload);
 
 const remove = async (id) => await base.remove(endpoint + '/' + id);
 
-const api = { findAll, findOne, update, create, remove};
+const findAllComplete = async () => await base.get(endpoint + '/findAllComplete');
+
+const api = { findAll, findOne, update, create, remove, findAllComplete};
 
 export default api;

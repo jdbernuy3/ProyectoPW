@@ -17,7 +17,7 @@ function DetalleRecurso({ searchParams }) {
     }, []);
 
     const cargarLibro = () => {
-        libroApi.findOne(parseInt(searchParams.id))
+        libroApi.findOne(searchParams.id)
             .then(promise => {
                 setLibro(promise.data)
             })
@@ -33,13 +33,14 @@ function DetalleRecurso({ searchParams }) {
 
     const handleAlert = () => {
         setAlertDialog(false);
+        window.location.replace('/inicio/admin');
     }
 
 
     return (
         <>
             <MyAppBar></MyAppBar>
-            <div className="bg-white h-100v w-100v pl-52 pr-8">
+            <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
                 {
                     (libro !== undefined) ? (
                         <div>
@@ -66,11 +67,11 @@ function DetalleRecurso({ searchParams }) {
                                                 id: libro.id,
                                             }
                                         }} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0 mr-5">Modificar</Link>
-                                        <Link onClick={handleEliminar} href="/inicio/admin" className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Eliminar</Link>
+                                        <button onClick={handleEliminar} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Eliminar</button>
                                         <AlertDialog title='Eliminación Completa' text='El recurso ha sido eliminado con éxito.' open={alertDialog} onClose={handleAlert}></AlertDialog>
                                     </div>
                                     {
-                                        libro.reserva ? (
+                                        !libro.available ? (
                                             <div>
                                                 <h2 className="font-regular text-2xl">Fecha Reserva:</h2>
                                                 <p>{libro.fechaReserva}</p>

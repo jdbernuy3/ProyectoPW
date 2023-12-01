@@ -1,106 +1,146 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
-import AlertDialog from '../AlertDialog/AlertDialog';
+import libroApi from '../../../api/libro'
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function FormInsertarRecurso() {
-    const libroInicial = {
-        id: 0,
-        serie: "",
-        autor: "",
-        ISBN: "",
-        imagenPortadaURL: "",
-        titulo: "",
-        reserva: false,
-        fechaReserva: "",
-        fechaRetorno: "",
-        vecesReservado: 0,
-    }
 
     const [alertDialog, setAlertDialog] = useState(false);
-    const [libro, setLibro] = useState(libroInicial);
-    const [libros, setLibros] = useState(() => {
-        const localData = JSON.parse(localStorage.getItem("libros"));
-        return localData || [];
+    const [libro, setLibro] = useState({
+        vecesReservado: 0,
+        available: true
     });
 
-    useEffect(() => {
-        // Actualizar el LocalStorage cuando la lista de libros cambie
-        localStorage.setItem("libros", JSON.stringify(libros));
-    }, [libros]);
 
     const handleAgregar = (e) => {
-        // Agregar el libro actual a la lista de libros y reiniciar el formulario
-
         e.preventDefault();
-
-        setLibros([...libros, libro]);
-        setLibro(libroInicial);
-        setAlertDialog(true);
+        libroApi.create(libro)
+            .then(promise => {
+                console.log(promise.data)
+                setAlertDialog(true)
+            })
     }
 
     const handleChange = (field, value) => {
-        // Actualizar el estado del libro con el valor del campo correspondiente
-        setLibro({ ...libro, [field]: value, id: libros.length+1});
-        setAlertDialog(false);
+        setLibro({ ...libro, [field]: value});
     }
 
     const handleAlert = () => {
         setAlertDialog(false);
+        window.location.replace('/inicio/admin');
     }
 
     return (
         <>
             <form className='text-center' onSubmit={handleAgregar}>
-                <ul>
+                <div className='flex gap-4'>
+                    <ul>
+                        <li className='p-4'>
+                            <TextField
+                                id="titulo"
+                                label="TÍTULO"
+                                color='secondary'
+                                variant="outlined"
+                                value={libro.titulo}
+                                onChange={(e) => handleChange("titulo", e.target.value)}
+                                focused
+                                required
+                            />
+                        </li>
+                        <li className='p-4'>
+                            <TextField
+                                id="autor"
+                                label="Autor, autores"
+                                variant="outlined"
+                                value={libro.autor}
+                                onChange={(e) => handleChange("autor", e.target.value)}
+                                color='secondary'
+                                focused
+                            />
+                        </li>
+                        <li className='p-4'>
+                            <TextField
+                                id="ISBN"
+                                label="ISBN"
+                                variant="outlined"
+                                value={libro.isbn13}
+                                onChange={(e) => handleChange("isbn13", e.target.value)}
+                                color='secondary'
+                                focused
+                            />
+                        </li>
+                        <li className='p-4'>
+                            <TextField
+                                id="serie"
+                                label="Serie, tipo"
+                                variant="outlined"
+                                value={libro.serie}
+                                onChange={(e) => handleChange("serie", e.target.value)}
+                                color='secondary'
+                                focused
+                            />
+                        </li>
+                    </ul>
+                    <ul>
                     <li className='p-4'>
                         <TextField
-                            id="titulo"
-                            label="TÍTULO"
+                            label='Encuadernación'
+                            defaultValue={libro.encuadernacion}
                             color='secondary'
                             variant="outlined"
-                            value={libro.titulo}
-                            onChange={(e) => handleChange("titulo", e.target.value)}
+                            onChange={(e) => handleChange("encuadernacion", e.target.value)}
                             focused
-                            required
-                        />
+                        ></TextField>
                     </li>
                     <li className='p-4'>
                         <TextField
-                            id="autor"
-                            label="Autor, autores"
-                            variant="outlined"
-                            value={libro.autor}
-                            onChange={(e) => handleChange("autor", e.target.value)}
+                            label='Imagen de portada'
+                            defaultValue={libro.imagenPortadaUrl}
                             color='secondary'
+                            variant="outlined"
+                            onChange={(e) => handleChange("imagenPortadaUrl", e.target.value)}
                             focused
-                        />
+                        ></TextField>
                     </li>
                     <li className='p-4'>
                         <TextField
-                            id="ISBN"
-                            label="ISBN"
-                            variant="outlined"
-                            value={libro.ISBN}
-                            onChange={(e) => handleChange("ISBN", e.target.value)}
+                            label='Categorías'
+                            defaultValue={libro.categorias}
                             color='secondary'
-                            focused
-                        />
-                    </li>
-                    <li className='p-4'>
-                        <TextField
-                            id="serie"
-                            label="Serie, tipo"
                             variant="outlined"
-                            value={libro.serie}
-                            onChange={(e) => handleChange("serie", e.target.value)}
-                            color='secondary'
+                            maxRows={3}
+                            onChange={(e) => handleChange("categorias", e.target.value)}
                             focused
-                        />
+                            multiline
+                        ></TextField>
                     </li>
                 </ul>
+                </div>
                 <input type='submit' value='Guardar' className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0"></input>
-                <AlertDialog title='Registro Completa' text='El recurso ha sido grabado con éxito.' open={alertDialog} onClose={handleAlert}></AlertDialog>
             </form>
+            <Dialog
+            open={alertDialog}
+            onClose={handleAlert}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            >
+            <DialogTitle id="alert-dialog-title">
+            Registro Completo
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                El recurso ha sido grabado con éxito.
+                </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={handleAlert}>OK</Button>
+            </DialogActions>
+            </Dialog>
         </>
     );
 }

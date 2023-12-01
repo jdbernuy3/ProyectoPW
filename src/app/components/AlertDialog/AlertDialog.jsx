@@ -21,6 +21,7 @@ export default function AlertDialog(props) {
 
     const handleClose = () => {
         setOpen(false);
+        window.location.replace('/inicio/admin');
     };
 
     return (
