@@ -29,20 +29,27 @@ const PerfilEstudiante = () => {
         contraseña: '',
     });
 
-    /*
-    const [userData, setUserData] = useState({
-        nombre: users[0].nombre,
-        tdoc: users[0].TipoDocumento,
-        apellido: users[0].apellidos,
-        nroDoc: users[0].NroDocumento,
-      });
+
+    useEffect(() => {
+        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        setLoggedUser(userFromStorage);
     
-    const [cuentaData, setCuentaData] = useState({
-        correo: users[0].correo,
-        contraseña: users[0].contrasena,
-    });
-    */
+        const { id, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, correo, contrasena, idioma, prefijo, color} = userFromStorage;
     
+        setUserData({
+            nombre: nombres || '',
+            tdoc: idTipoDoc || '',
+            apellido: apellidos || '',
+            nroDoc: nroDoc || '',
+        });
+    
+        setCuentaData({
+            correo: correo || '',
+            contraseña: contrasena || '',
+        });
+
+    }, []);
+
     const tabs = [
         {
             id: 0,

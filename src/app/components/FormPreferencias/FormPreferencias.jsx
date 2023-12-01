@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import usuarioApi from '../../../api/usuario'; //update.
 
 function FormPreferencias({ preferencias, setPreferencias }) {
   const [formPref, setFormPref] = useState({
-    idioma: '',
-    prefijo: '', 
-    color: '',  
+    idioma: preferencias.idioma || '',
+    prefijo: preferencias.prefijo || '', 
+    color: preferencias.color || ''
   });
 
   const handleChange = (event) => {
@@ -13,13 +14,23 @@ function FormPreferencias({ preferencias, setPreferencias }) {
     setFormPref({ ...formPref, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+
     console.log('Datos antiguos:', preferencias);
-    console.log('NuevosDatos:', formPref);
+    console.log('Nuevos Datos:', formPref);
+
     setPreferencias(formPref);
-    
-    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+   
+    userFromStorage.idioma = formPref.idioma || userFromStorage.idioma;
+    userFromStorage.prefijo = formPref.prefijo || userFromStorage.prefijo;
+    userFromStorage.color = formPref.color || userFromStorage.color;
+  
+    localStorage.setItem('user', JSON.stringify(userFromStorage));
+
+    await usuarioApi.update(userFromStorage); 
+
   };
 
   return (
@@ -34,6 +45,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="idioma"
                 name="idioma"
+                defaultValue={formPref.idioma}
                 value={formPref.idioma}
                 onChange={handleChange}
               />
@@ -45,6 +57,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="prefijo"
                 name="prefijo"
+                defaultValue={formPref.prefijo}
                 value={formPref.prefijo}
                 onChange={handleChange} 
               />
@@ -56,6 +69,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
                 type="text"
                 id="color"
                 name="color"
+                defaultValue={formPref.color}
                 value={formPref.color}
                 onChange={handleChange} 
               />

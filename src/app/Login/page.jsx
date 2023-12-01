@@ -28,6 +28,9 @@ function Login() {
             } else if (user.tipo === "admin") {
                 window.location.href = "/inicio/admin";
             }
+
+            window.localStorage.setItem('user', JSON.stringify(user));
+
         } else {
             alert("Correo o contraseña incorrectos");
         }

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
+import usuarioApi from '../../../api/usuario'; //update.
 
 function FormCuenta({cuentaData, setCuentaData} ) {
   const [formAccount, setFormAccount] = useState({
-    correo: '',
-    contraseña: ''
+    correo: cuentaData.correo || '',
+    contraseña: cuentaData.contraseña || ''
   });
 
   const handleChange = (event) => {
@@ -12,12 +13,23 @@ function FormCuenta({cuentaData, setCuentaData} ) {
     setFormAccount({ ...formAccount, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+
     console.log('Datos antiguos', cuentaData);
     console.log('Nuevos Datos:', formAccount);
+
     setCuentaData(formAccount);
-    // Aquí puedes enviar los datos a través de una solicitud o realizar cualquier otra acción que necesites.
+
+    userFromStorage.correo = formAccount.correo || userFromStorage.correo;
+    userFromStorage.contrasena = formAccount.contraseña || userFromStorage.contrasena;
+  
+    localStorage.setItem('user', JSON.stringify(userFromStorage));
+
+    await usuarioApi.update(userFromStorage); 
+ 
   };
 
   return (
@@ -32,6 +44,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
                 type="text"
                 id="correo"
                 name="correo"
+                defaultValue={formAccount.correo} //cambiar a userfromStorage.
                 value={formAccount.correo}
                 onChange={handleChange}
               />
@@ -43,6 +56,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
                 type="password"
                 id="contraseña"
                 name="contraseña"
+                defaultValue={formAccount.contraseña} //cambiar a userfromStorage.
                 value={formAccount.contraseña}
                 onChange={handleChange}
               />

@@ -4,7 +4,7 @@ import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
 import FormCuenta from "@/app/components/FormCuenta/FormCuenta";
 import FormPreferencias from "@/app/components/FormPreferencias/FormPreferencias";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Dialog from '@mui/material/Dialog';
@@ -18,25 +18,56 @@ import users from "@/data/users";
 
 const PerfilAdmin = () => {
 
+    const [loggedUser, setLoggedUser] = useState(null);
     const [userData, setUserData] = useState({
-        nombre: 'jd',
-        tdoc: 'DNI',
-        apellido: 'br',
-        nroDoc: '12',
-      });
+        nombre: '',
+        tdoc: '',
+        apellido: '',
+        nroDoc: '',
+    });
     
     const [cuentaData, setCuentaData] = useState({
-        correo: '2',
-        contraseña: '2',
+        correo: '',
+        contraseña: '',
     });
     
     const [preferencias, setPreferencias] = useState({
-        idioma: '3',
-        prefijo: '3', 
-        color: '3', 
-      });
+        idioma: '',
+        prefijo: '',
+        color: '',
+    });
+    
 
-     
+    useEffect(() => {
+        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        setLoggedUser(userFromStorage);
+    
+        const { id, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, correo, contrasena, idioma, prefijo, color} = userFromStorage;
+    
+        setUserData({
+            nombre: nombres || '',
+            tdoc: idTipoDoc || '',
+            apellido: apellidos || '',
+            nroDoc: nroDoc || '',
+        });
+    
+        setCuentaData({
+            correo: correo || '',
+            contraseña: contrasena || '',
+        });
+    
+        setPreferencias({
+            idioma: idioma || '',
+            prefijo: prefijo || '',
+            color: color || '',
+        });
+    }, []);
+    
+        
+
+      const [openDialog, setOpenDialog] = useState(false);
+      const [profileImage, setProfileImage] = useState('https://c0.klipartz.com/pngpicture/320/858/gratis-png-administrador-de-iconos-de-computadora-director-ejecutivo-thumbnail.png');
+      
 
     const tabs = [
         {
@@ -56,9 +87,7 @@ const PerfilAdmin = () => {
         },
     ]
 
-    const [openDialog, setOpenDialog] = useState(false);
-    const [profileImage, setProfileImage] = useState('https://c0.klipartz.com/pngpicture/320/858/gratis-png-administrador-de-iconos-de-computadora-director-ejecutivo-thumbnail.png');
-  
+    
 
     const handleOpenDialog = () => {
         setOpenDialog(true);
@@ -79,7 +108,7 @@ const PerfilAdmin = () => {
         <>
             <MyAppBar text='Administración de bibliotecas'></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8">
-                <h1 className="pt-10 text-4xl">Hola, Juliana</h1>
+                <h1 className="pt-10 text-4xl">Hola, {userData.nombre} </h1>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
                 <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
                 <img className='h-96 w-96' src={profileImage} alt="Imagen de perfil"></img>
