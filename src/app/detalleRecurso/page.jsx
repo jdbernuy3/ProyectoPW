@@ -8,9 +8,10 @@ import libroApi from '../../api/libro'
 
 function DetalleRecurso({ searchParams }) {
 
+    const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     const [alertDialog, setAlertDialog] = useState(false);
-    const [libro, setLibro] = useState({});
+    const [libro, setLibro] = useState(null);
 
     useEffect(() => {
         cargarLibro()
@@ -19,7 +20,10 @@ function DetalleRecurso({ searchParams }) {
     const cargarLibro = () => {
         libroApi.findOne(searchParams.id)
             .then(promise => {
-                setLibro(promise.data)
+                if(promise != null) {
+                    setLibro(promise.data)
+                }
+                
             })
     }
 
@@ -42,7 +46,7 @@ function DetalleRecurso({ searchParams }) {
             <MyAppBar></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
                 {
-                    (libro !== undefined) ? (
+                    (libro !== null) ? (
                         <div>
                             <h1 className="p-10 font-bold text-4xl">{libro.titulo}</h1>
                             <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">

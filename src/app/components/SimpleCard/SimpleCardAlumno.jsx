@@ -1,11 +1,11 @@
 import Link from "next/link"
 
-function SimpleCard(props) {
+function SimpleCardAlumno(props) {
 
     return (
         <>  
             <Link href={{
-                pathname: '/detalleRecurso',
+                pathname: '/citas',
                 query: {
                     id: props.id,
                 }
@@ -24,4 +24,4 @@ function SimpleCard(props) {
     )
 }
 
-export default SimpleCard
+export default SimpleCardAlumno

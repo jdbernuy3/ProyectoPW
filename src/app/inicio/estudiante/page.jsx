@@ -1,74 +1,89 @@
 'use client'
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar"
-import SimpleCard from "@/app/components/SimpleCard/SimpleCard"
-import { useState } from "react";
+import SimpleCardAlumno from "@/app/components/SimpleCard/SimpleCardAlumno"
+import { useState, useEffect } from "react";
+import reservaApi from '../../../api/reserva'
 
 function InicioEstudiante() {
 
-    const user = 'Juliana'
 
-    const [ultimasReservas, setUltimasReservas] = useState(() => {
-        const libros = JSON.parse(localStorage.getItem("libros"));
-        const librosReservados = libros.filter((libro) => libro.reserva === true)
+    //const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
+    const user = JSON.parse(localStorage.getItem('user')) || {}
 
-        const librosOrdenados = librosReservados.sort((a, b) => {
-            const fechaA = new Date(a.fechaReserva);
-            const fechaB = new Date(b.fechaReserva);
-            return fechaB - fechaA;
-        });
-        return librosOrdenados.slice(0, 3);
-    });
+    const [masFrecuentes, setMasFrecuentes] = useState([]);
+    const [prontasAVencer, setProntasAVencer] = useState([]);
 
-    const [prontasAVencer, setProntasAVencer] = useState(() => {
-        const libros = JSON.parse(localStorage.getItem("libros"));
+    useEffect(() => {
+        cargarmasFrecuentes()
+        cargarProntasAVencer()
+    }, [])
 
-        // Ordenar los libros por fecha de vencimiento
-        const librosOrdenados = libros.sort((a, b) => {
-            const fechaA = new Date(a.fechaRetorno);
-            const fechaB = new Date(b.fechaRetorno);
-            return fechaA - fechaB;
-        });
+    const cargarmasFrecuentes = () => {
 
-        // Filtrar los libros que están próximos a vencer
-        const librosProximosAVencer = librosOrdenados.slice(0, 3);
+        reservaApi.findAllComplete()
+            .then(promise => {
+                const reservas = promise.data || []
+                const reservasAlumno = reservas.filter((reserva) => reserva.idUsuario === user.id)
 
-        return librosProximosAVencer;
-    });
-    const [todasLasReservas, setTodasLasReservas] = useState([]);
 
-    // Función para manejar el clic en el botón
-    function handleVerTodasLasReservas() {
-        // Filtrar todas las reservas
-        const reservas = dataInicial.filter(libro => libro.reserva === true);
-        setTodasLasReservas(reservas);
+                const conteo = {}
+                reservasAlumno.forEach(item => {
+                    const { libro } = item;
+                    const libroString = JSON.stringify(libro);
+                    conteo[libroString] = (conteo[libroString] || 0) + 1;
+                });
+                
+                const conteoLibros = Object.keys(conteo).map(libroString => ({ libro: JSON.parse(libroString), vecesReservado: conteo[libroString] }));
+
+                conteoLibros.sort((a, b) => b.vecesReservado - a.vecesReservado);
+                const top3Libros = conteoLibros.slice(0, 3).map(item => item.libro);
+
+                setMasFrecuentes(top3Libros)
+
+            })
     }
+
+    const cargarProntasAVencer = () => {
+
+        reservaApi.findAllComplete()
+            .then(promise => {
+                const reservas = promise.data || []
+                const reservasAlumno = reservas.filter((reserva) => reserva.idUsuario === user.id)
+                const reservasActuales = reservasAlumno.filter((reserva) => reserva.estado === '1')
+
+                const reservasOrdenadas = reservasActuales.sort((a, b) => {
+                    const fechaA = new Date(a.fechaDevolucion)
+                    const fechaB = new Date(b.fechaDevolucion)
+                    return fechaA - fechaB
+                })
+                setProntasAVencer(reservasOrdenadas)
+
+            })
+    }
+
 
     return (
         <>
             <MyAppBar></MyAppBar>
-            <div className="bg-white h-100v w-100v pl-52 pr-8">
-                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user}!`}</h1>
+            <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
+                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user.nombres}!`}</h1>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
                 <div className="bg-[#F3EDF7] p-10">
-                    <h2 className="text-xl font-medium mb-5">Últimas reservas</h2>
+                    <h2 className="text-xl font-medium mb-5">Más frecuentes</h2>
                     <div className="flex space-x-4">
-                    {
-                        ultimasReservas.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
+                    {   
+                        masFrecuentes.map((libro) => 
+                            <SimpleCardAlumno id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fecha} imagen={libro.imagenPortadaUrl}></SimpleCardAlumno>
                         )
                     }
                     </div>
-                    <div className="bg-[#F3EDF7] p-10 mt-10">
-                    <a href="/inicio/todo">Ver todas las reservas</a>
                 </div>
-                </div>
-                
                 <div className="bg-[#F3EDF7] p-10 mt-10">
-                    <h2 className="text-xl font-medium mb-5">Proximas a vencer</h2>
+                    <h2 className="text-xl font-medium mb-5">Prontas a vencer</h2>
                     <div className="flex space-x-4">
                     {
-                        prontasAVencer.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
+                        prontasAVencer.map((reserva) => 
+                            <SimpleCardAlumno id={reserva.libro.id} key={reserva.libro.id} titulo={reserva.libro.titulo} fecha={reserva.fechaDevolucion.substring(0,10)} imagen={reserva.libro.imagenPortadaUrl}></SimpleCardAlumno>
                         )
                     }
                     </div>

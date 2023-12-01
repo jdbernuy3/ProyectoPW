@@ -8,10 +8,9 @@ import { Link } from "react-router-dom";
 
 function InicioAdmin() {
 
-    const user = 'Juliana'
-
+    //const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
+    const user = JSON.parse(localStorage.getItem('user')) || {}
     const [ultimasReservas, setUltimasReservas] = useState([]);
-
     const [masPedidos, setMasPedidos] = useState([]);
 
     useEffect(() => {
@@ -24,9 +23,9 @@ function InicioAdmin() {
         reservaApi.findAllComplete()
             .then(promise => {
                 const reservas = promise.data || []
-                //const reservasActuales = reservas.filter((reserva) => reserva.estado === '1')
+                const reservasActuales = reservas.filter((reserva) => reserva.estado === '1')
                 console.log(promise.data)
-                const reservasOrdenadas = reservas.sort((a, b) => {
+                const reservasOrdenadas = reservasActuales.sort((a, b) => {
                     const fechaA = new Date(a.fechaReserva)
                     const fechaB = new Date(b.fechaReserva)
                     return fechaB - fechaA
@@ -53,7 +52,7 @@ function InicioAdmin() {
             <MyAppBar></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
             <div className="grid grid-cols-2">
-                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user}!`}</h1>
+                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user.nombres}!`}</h1>
                 <a href={'/insertarRecurso'} className="justify-self-end bg-purple-500 hover:bg-purple-700 text-white py-2 px-10 mt-10 mr-12 rounded-3xl focus:ring-0">Insertar recurso</a>
             </div>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
@@ -62,7 +61,7 @@ function InicioAdmin() {
                     <div className="flex space-x-4">
                     {   
                         ultimasReservas.map((reserva) => 
-                            <SimpleCard id={reserva.libro.id} key={reserva.libro.id} titulo={reserva.libro.titulo} fecha={reserva.libro.fechaReserva} imagen={reserva.libro.imagenPortadaUrl}></SimpleCard>
+                            <SimpleCard id={reserva.libro.id} key={reserva.libro.id} titulo={reserva.libro.titulo} fecha={reserva.fechaDevolucion.substring(0,10)} imagen={reserva.libro.imagenPortadaUrl}></SimpleCard>
                         )
                     }
                     </div>
@@ -72,7 +71,7 @@ function InicioAdmin() {
                     <div className="flex space-x-4">
                     {
                         masPedidos.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaUrl}></SimpleCard>
+                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} imagen={libro.imagenPortadaUrl}></SimpleCard>
                         )
                     }
                     </div>
