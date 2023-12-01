@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import usuarioApi from '../../../api/usuario'; //update.
 
@@ -8,6 +8,18 @@ function FormCuenta({cuentaData, setCuentaData} ) {
     contraseña: cuentaData.contraseña || ''
   });
 
+  const [usuarios, setUsuarios] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const usuariosData = await usuarioApi.findAll();
+      console.log('Usuarios Data:', usuariosData);
+      setUsuarios(usuariosData);
+    };
+
+    fetchData();
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormAccount({ ...formAccount, [name]: value });
@@ -15,6 +27,13 @@ function FormCuenta({cuentaData, setCuentaData} ) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const emailExistsInDB = usuarios.length > 0 && usuarios.map((user) => user.correo === formAccount.correo).includes(true);
+
+    if (emailExistsInDB || !formAccount.correo.includes('@')) {
+      alert('Email ya registrado o formato incorrecto, modificación rechazada');
+      return;
+    }
 
     const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
 

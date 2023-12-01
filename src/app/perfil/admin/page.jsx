@@ -67,7 +67,7 @@ const PerfilAdmin = () => {
 
       const [openDialog, setOpenDialog] = useState(false);
       const [profileImage, setProfileImage] = useState('https://c0.klipartz.com/pngpicture/320/858/gratis-png-administrador-de-iconos-de-computadora-director-ejecutivo-thumbnail.png');
-      
+      //cambiar la de arriba para que ponga la imagen del usuario logeado, y si no tiene una ponga una por defecto.
 
     const tabs = [
         {
