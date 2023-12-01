@@ -2,7 +2,8 @@
 import MyAppBar from "../components/MyAppBar/MyAppBar"
 import MyTabPanel from "../components/MyTabPanel/MyTabPanel"
 import FormModificarRecurso from "../components/FormModificarRecurso/FormModificarRecurso"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import libroApi from '../../api/libro'
 
 function ModificarRecurso({ searchParams }) {
 
@@ -16,16 +17,24 @@ function ModificarRecurso({ searchParams }) {
         },
     ]
 
-    const [libros, setLibros] = useState(() => {
-        const localData = JSON.parse(localStorage.getItem("libros"));
-        return localData || [];
-    });
+    const [libros, setLibros] = useState([]);
     
     const [indice, setIndice] = useState(() => {
         const lista = [...libros];
         const ind = lista.findIndex((element) => element.id == searchParams.id);
         return ind;
     });
+
+    const cargarDatos = () => {
+        libroApi.findAll()
+            .then(promise => {
+                setLibros(promise.data)
+            })
+    }
+
+    useEffect(() => {
+        cargarDatos()
+    }, [])
 
 
     const [libro, setLibro] = useState(libros[indice]);

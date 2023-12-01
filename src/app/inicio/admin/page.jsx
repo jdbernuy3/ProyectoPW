@@ -1,32 +1,49 @@
 'use client'
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar"
 import SimpleCard from "@/app/components/SimpleCard/SimpleCard"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import libroApi from '../../../api/libro'
+import reservaApi from '../../../api/reserva'
 
 function InicioAdmin() {
 
     const user = 'Juliana'
 
-    const [ultimasReservas, setUltimasReservas] = useState(() => {
-        const libros = JSON.parse(localStorage.getItem("libros"));
-        const librosReservados = libros.filter((libro) => libro.reserva === true)
+    const [ultimasReservas, setUltimasReservas] = useState([]);
 
-        const librosOrdenados = librosReservados.sort((a, b) => {
-            const fechaA = new Date(a.fechaReserva);
-            const fechaB = new Date(b.fechaReserva);
-            return fechaB - fechaA;
-        });
-        return librosOrdenados.slice(0, 3);
-    });
+    const [masPedidos, setMasPedidos] = useState([]);
 
-    const [masPedidos, setMasPedidos] = useState(() => {
-        const libros = JSON.parse(localStorage.getItem("libros"));
+    useEffect(() => {
+        cargarUltimasReservas()
+        cargarMasPedidos()
+    })
 
-        const librosOrdenados = libros.sort((a, b) => {
-            return b.vecesReservado - a.vecesReservado;
-        });
-        return librosOrdenados.slice(0, 3);
-    });
+    const cargarUltimasReservas = () => {
+        libroApi.findAll()
+            .then(promise => {
+                const libros = promise.data
+                const librosReservados = libros.filter((libro) => libro.available === false)
+
+                const librosOrdenados = librosReservados.sort((a, b) => {
+                    const fechaA = new Date(a.fechaReserva);
+                    const fechaB = new Date(b.fechaReserva);
+                    return fechaB - fechaA;
+                });
+                
+                setUltimasReservas(librosOrdenados.slice(0, 3))
+            })
+    }
+
+    const cargarMasPedidos = () => {
+        libroApi.findAll()
+            .then(promise => {
+                const libros = promise.data
+                const librosOrdenados = libros.sort((a, b) => {
+                    return b.vecesReservado - a.vecesReservado;
+                });
+                setMasPedidos(librosOrdenados.slice(0, 3))
+            })
+    }
 
     return (
         <>
@@ -39,7 +56,7 @@ function InicioAdmin() {
                     <div className="flex space-x-4">
                     {
                         ultimasReservas.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
+                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaUrl}></SimpleCard>
                         )
                     }
                     </div>
@@ -49,7 +66,7 @@ function InicioAdmin() {
                     <div className="flex space-x-4">
                     {
                         masPedidos.map((libro) => 
-                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaURL}></SimpleCard>
+                            <SimpleCard id={libro.id} key={libro.id} titulo={libro.titulo} fecha={libro.fechaReserva} imagen={libro.imagenPortadaUrl}></SimpleCard>
                         )
                     }
                     </div>

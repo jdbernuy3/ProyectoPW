@@ -1,44 +1,28 @@
 import TextField from '@mui/material/TextField';
 import { useState, useEffect } from 'react';
 import AlertDialog from '../AlertDialog/AlertDialog';
+import libroApi from '../../../api/libro'
 
 function FormModificarRecurso(props) {
 
     
     const [alertDialog, setAlertDialog] = useState(false);
-    const [libros, setLibros] = useState(() => {
-        const localData = JSON.parse(localStorage.getItem("libros"));
-        return localData || [];
-    });
-    
-    const [indice, setIndice] = useState(() => {
-        const lista = [...libros];
-        const ind = lista.findIndex((element) => element.id == props.id);
-        return ind;
-    });
-
-
-    const [libro, setLibro] = useState(libros[indice]);
+    const [libro, setLibro] = useState({})
 
     useEffect(() => {
-        // Actualizar el LocalStorage cuando la lista de libros cambie
-        localStorage.setItem("libros", JSON.stringify(libros));
-    }, [libros]);
+        libroApi.findOne(props.id)
+            .then(promise => {
+                setLibro(promise.data)
+                console.log(promise.data)
+            })
+    }, []);
 
     const handleModificar = (e) => {
         e.preventDefault();
-        const nuevosLibros = [...libros];
 
-        if (nuevosLibros[indice]) {
-            nuevosLibros[indice] = libro;
-        }
-
-        setLibros(nuevosLibros);
-        setAlertDialog(true);
     }
 
     const handleChange = (field, value) => {
-        // Actualizar el estado del libro con el valor del campo correspondiente
         setLibro({ ...libro, [field]: value });
     }
 

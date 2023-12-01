@@ -4,39 +4,31 @@ import { useEffect, useState } from "react";
 import AlertDialog from "../components/AlertDialog/AlertDialog";
 import { Router } from 'next/router';
 import Link from "next/link";
+import libroApi from '../../api/libro'
 
 function DetalleRecurso({ searchParams }) {
 
 
     const [alertDialog, setAlertDialog] = useState(false);
-    const [libros, setLibros] = useState(() => {
-        const localData = JSON.parse(localStorage.getItem("libros"));
-        return localData || [];
-    });
-
-    const [ind, setIndice] = useState(() => {
-        const lista = [...libros];
-        const ind = lista.findIndex((element) => element.id == searchParams.id);
-        return ind;
-    });
-
-    const [libro, setLibro] = useState(() => {
-        const id = parseInt(searchParams.id);
-
-        const libro = libros.find((libro) => libro.id === id);
-        console.log(libro);
-        return libro;
-    });
+    const [libro, setLibro] = useState({});
 
     useEffect(() => {
-        localStorage.setItem("libros", JSON.stringify(libros));
-    }, [libros]);
+        cargarLibro()
+    }, []);
+
+    const cargarLibro = () => {
+        libroApi.findOne(parseInt(searchParams.id))
+            .then(promise => {
+                setLibro(promise.data)
+            })
+    }
 
     const handleEliminar = () => {
-        let nuevosLibros = [...libros];
-        nuevosLibros.splice(ind, 1);
-        setLibros(nuevosLibros);
-        setAlertDialog(true);
+        libroApi.remove(searchParams.id)
+            .then(() => {
+                setAlertDialog(true);
+            })
+        
     }
 
     const handleAlert = () => {
@@ -53,7 +45,7 @@ function DetalleRecurso({ searchParams }) {
                         <div>
                             <h1 className="p-10 font-bold text-4xl">{libro.titulo}</h1>
                             <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
-                                <img className="w-64 h-fit" src={libro.imagenPortadaURL != '' ? libro.imagenPortadaURL : 'https://elcomercio.pe/resizer/k3JQ9nQAHSY_xqle1DBrrSgYgGI=/1200x1200/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/7OQEQHOSPZEDVMAAJFQLXCCYQE.jpg'}></img>
+                                <img className="w-64 h-fit" src={libro.imagenPortadaUrl}></img>
                                 <div className="w-max p-10 grid gap-20 md:grid-cols-2">
                                     <div>
                                         <h2 className="font-regular text-2xl">Autor:</h2>
@@ -63,10 +55,10 @@ function DetalleRecurso({ searchParams }) {
                                         <p>{libro.serie}</p>
                                         <br></br>
                                         <h2 className="font-regular text-2xl">ISBN:</h2>
-                                        <p>{libro.ISBN}</p>
+                                        <p>{libro.isbn13}</p>
                                         <br></br>
                                         <h2 className="font-regular text-2xl">Estado:</h2>
-                                        <p>{libro.reserva ? 'Reservado' : 'Disponible'}</p>
+                                        <p>{libro.available ? 'Disponible' : 'Reservado'}</p>
                                         <br></br>
                                         <Link href={{
                                             pathname: '/modificarRecurso',
