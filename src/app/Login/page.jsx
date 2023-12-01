@@ -18,23 +18,38 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+    
         try {
             const response = await axios.post('https://ggranda-20232-prograweb-as-api.azurewebsites.net/usuario/login', {
                 correo: formData.correo,
                 contrasena: formData.contrasena,
             });
-
+    
             if (response.data.success) {
                 // Usuario autenticado con éxito
                 alert('Inicio de sesión exitoso');
+    
                 // Guardar información del usuario en localStorage
                 guardarInformacionUsuario(
-                    formData.correo,
-                    formData.contrasena,
+                    response.data.data.id,
+                    response.data.data.correo,
+                    response.data.data.contrasena,
+                    response.data.data.nombres,
+                    response.data.data.apellidos,
+                    response.data.data.fotoUrl,
+                    response.data.data.idTipoUsuario,
+                    response.data.data.idTipoDoc,
+                    response.data.data.nroDoc,
+                    response.data.data.idioma,
+                    response.data.data.prefijo,
+                    response.data.data.color
                 );
-                // Aquí puedes redirigir a la página de inicio correspondiente
-                window.location.href = '/inicio/alumno'; // Ajusta la ruta según tus necesidades
+    
+                if (response.data.data.idTipoUsuario === 1) {
+                    window.location.href = '/inicio/alumno';
+                } else if (response.data.data.idTipoUsuario === 2) {
+                    window.location.href = '/inicio/admin';
+                }
             } else {
                 // Autenticación fallida
                 alert('Correo o contraseña incorrectos');
@@ -44,6 +59,7 @@ function Login() {
             alert('Error en el inicio de sesión');
         }
     };
+    
 
 
 

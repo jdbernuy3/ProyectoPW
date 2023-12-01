@@ -1,10 +1,9 @@
-'use client'
+'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import MyAppBar from '@/app/components/MyAppBar/MyAppBar';
+import { obtenerInformacionUsuario } from '@/utils/localStorage.utils';
 
-
-const url = require('url');
 function capturarIdDesdeURL(urlString) {
     // Parsea la URL
     const parsedUrl = new URL(urlString);
@@ -19,8 +18,7 @@ function Citas() {
     const [libros, setLibros] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [reservados, setReservados] = useState({});
-    const [selectedDates, setSelectedDates] = useState({});
-
+    const [selectedDates, setSelectedDates] = useState('');
 
     const showModal = () => {
         setModalVisible(true);
@@ -30,13 +28,58 @@ function Citas() {
         setModalVisible(false);
     };
 
-    const handleReserva = (bookId) => {
+    const handleReserva = async (bookId, isAvailable) => {
         // Lógica de reserva
-        setReservados((prevReservados) => ({
-            ...prevReservados,
-            [bookId]: true,
-        }));
-        showModal();
+        if (reservados[bookId] || !isAvailable) {
+            return; // Evita realizar reservas duplicadas o en libros no disponibles
+        }
+
+        try {
+            const usuario = obtenerInformacionUsuario(); // Obtén la información del usuario desde localStorage
+            const idUsuario = usuario ? usuario.id : null; // Obtén el id del usuario
+
+            if (!idUsuario) {
+                // Maneja el caso en que el id del usuario no esté disponible
+                console.error('No se pudo obtener el id del usuario');
+                return;
+            }
+
+            const fechaReserva = new Date().toISOString(); // Obtiene la fecha y hora actual en formato ISO
+            const fechaDevolucion = selectedDates; // Utiliza la fecha seleccionada en el calendario
+            const estado = 1; // Estado para reservar el libro
+
+            // Crea el objeto de reserva
+            const reservaData = {
+                idUsuario,
+                idLibro: bookId,
+                fechaReserva,
+                fechaDevolucion,
+                estado,
+            };
+
+            // Realiza la solicitud para crear la reserva
+            const reservaResponse = await fetch('https://ggranda-20232-prograweb-as-api.azurewebsites.net/reserva', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reservaData),
+            });
+
+            if (!reservaResponse.ok) {
+                throw new Error(`Error al realizar la reserva - ${reservaResponse.status}`);
+            }
+
+            // Actualiza el estado de reservados
+            setReservados((prevReservados) => ({
+                ...prevReservados,
+                [bookId]: true,
+            }));
+
+            showModal();
+        } catch (error) {
+            console.error('Error al realizar la reserva:', error);
+        }
     };
 
     useEffect(() => {
@@ -73,7 +116,6 @@ function Citas() {
         // Llamar a la función fetchData
         fetchData();
     }, []);
-
 
     return (
         <>
@@ -148,12 +190,12 @@ function Citas() {
                             <tr>
                                 <td className="py-4 text-center" colSpan="3">
                                     <input
-                                        onClick={() => handleReserva(book.id)}
+                                        onClick={() => handleReserva(book.id, book.available)}
                                         type="button"
                                         value="Reservar"
-                                        className={`${reservados[book.id] ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#7026A7] hover:bg-[#DD96F1]'
+                                        className={`${reservados[book.id] || !book.available ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#7026A7] hover:bg-[#DD96F1]'
                                             } text-white py-2 px-4 rounded-full focus:ring-0`}
-                                        disabled={reservados[book.id]}
+                                        disabled={reservados[book.id] || !book.available}
                                     />
                                 </td>
                             </tr>
@@ -189,7 +231,7 @@ function Citas() {
                                 La reserva del recurso se ha realizado con éxito. Este debe ser devuelto hasta el día {selectedDates}.
                             </p>
                             <div className="flex justify-center">
-                                <Link href="/FormResultados">
+                                <Link href="/inicio/admin">
                                     <button onClick={hideModal} className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded">
                                         Ok
                                     </button>

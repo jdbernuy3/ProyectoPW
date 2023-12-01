@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { eliminarInformacionUsuario } from "@/utils/localStorage.utils";
 
 const theme = createTheme({
     palette: {
@@ -63,12 +64,15 @@ export default function MyAppBar(props) {
                             <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
                                 {props.text}
                             </Typography>
+                            
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 color="inherit"
+                                href="/Login"
+                                onClick={(eliminarInformacionUsuario)}
                             >
                                 <AccountCircle />
                             </IconButton>
