@@ -1,13 +1,14 @@
 'use client'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
 import Link from "next/link";
-import users from "src/data/users";
+import axios from "axios";
+import { guardarInformacionUsuario } from "@/utils/localStorage.utils";
 
 function Login() {
     const [formData, setFormData] = useState({
         correo: "",
-        contraseña: "",
+        contrasena: "",
     });
 
     const handleInputChange = (e) => {
@@ -15,26 +16,36 @@ function Login() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        const { correo, contraseña } = formData;
-        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-        const user = storedUsers.find((user) => user.correo === correo && user.contraseña === contraseña);
+        try {
+            const response = await axios.post('https://ggranda-20232-prograweb-as-api.azurewebsites.net/usuario/login', {
+                correo: formData.correo,
+                contrasena: formData.contrasena,
+            });
 
-        if (user) {
-            if (user.tipo === "alumno") {
-                window.location.href = "/inicio/alumno";
-            } else if (user.tipo === "admin") {
-                window.location.href = "/inicio/admin";
+            if (response.data.success) {
+                // Usuario autenticado con éxito
+                alert('Inicio de sesión exitoso');
+                // Guardar información del usuario en localStorage
+                guardarInformacionUsuario(
+                    formData.correo,
+                    formData.contrasena,
+                );
+                // Aquí puedes redirigir a la página de inicio correspondiente
+                window.location.href = '/inicio/alumno'; // Ajusta la ruta según tus necesidades
+            } else {
+                // Autenticación fallida
+                alert('Correo o contraseña incorrectos');
             }
-
-            window.localStorage.setItem('user', JSON.stringify(user));
-
-        } else {
-            alert("Correo o contraseña incorrectos");
+        } catch (error) {
+            console.error('Error en el inicio de sesión:', error);
+            alert('Error en el inicio de sesión');
         }
     };
+
+
 
     return (
         <div>
@@ -61,14 +72,14 @@ function Login() {
                             variant="outlined"
                             focused
                             type="password"
-                            name="contraseña"
-                            value={formData.contraseña}
+                            name="contrasena"
+                            value={formData.contrasena}
                             onChange={handleInputChange}
                         />
                     </li>
                 </ul>
                 <div>
-                    <a href="#" className="font-semibold m-1 hover:text-indigo-500 text-xs text-[#5E2B6D]" style={{ marginLeft: "110px", marginBottom:"50px" }}>
+                    <a href="#" className="font-semibold m-1 hover:text-indigo-500 text-xs text-[#5E2B6D]" style={{ marginLeft: "110px", marginBottom: "50px" }}>
                         Forgot password?
                     </a>
                 </div>
@@ -81,5 +92,5 @@ function Login() {
     );
 }
 
-export default Login;
 
+export default Login;
