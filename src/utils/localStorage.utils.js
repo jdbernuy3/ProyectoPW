@@ -1,7 +1,7 @@
 // CREAR FUNCION PARA ALMACENAR DATOS DE LA SESIÓN.
 // Almacenar información de usuario en localStorage
-export const guardarInformacionUsuario = (id,correo, contrasena, nombre, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, idioma, prefijo, color) => {
-  const usuario = { id,correo, contrasena, nombre, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, idioma, prefijo, color };
+export const guardarInformacionUsuario = (id,correo, contrasena, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, idioma, prefijo, color) => {
+  const usuario = { id,correo, contrasena, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, idioma, prefijo, color };
   localStorage.setItem('user', JSON.stringify(usuario));
 };
 
