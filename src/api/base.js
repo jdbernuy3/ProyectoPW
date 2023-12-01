@@ -2,9 +2,9 @@ import axios from 'axios'
 
 const URI = 'https://ggranda-20232-prograweb-as-api.azurewebsites.net/'
 
-const get = async (endpoint, id) => {
+const get = async (endpoint) => {
     try {
-        const url = URI.concat(endpoint + '/' + id);
+        const url = URI.concat(endpoint);
 
         return await axios.get(url);
     } catch(err) {

@@ -19,8 +19,6 @@ const theme = createTheme({
     },
 });
 
-
-
 export default function MyAppBar(props) {
 
     const [sidebar, setSidebar] = useState(true);
