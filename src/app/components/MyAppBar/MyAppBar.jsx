@@ -34,7 +34,7 @@ export default function MyAppBar(props) {
         let esAdmin = false;
         let esAlum = false;
 
-    if (userFromStorage.tipoUsuario === 1) {
+    if (userFromStorage.idTipoUsuario === 1) {
         esAlum = true;
     } else {
         esAdmin = true;
