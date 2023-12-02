@@ -18,17 +18,17 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-    
+        
         try {
             const response = await axios.post('https://ggranda-20232-prograweb-as-api.azurewebsites.net/usuario/login', {
                 correo: formData.correo,
                 contrasena: formData.contrasena,
             });
-    
+            console.log(response.data)
             if (response.data.success) {
                 // Usuario autenticado con éxito
+                
                 alert('Inicio de sesión exitoso');
-    
                 // Guardar información del usuario en localStorage
                 guardarInformacionUsuario(
                     response.data.data.id,
