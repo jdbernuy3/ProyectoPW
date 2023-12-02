@@ -24,7 +24,7 @@ function FormBuscarRecurso() {
     const filteredLibros = allLibros.filter((libro) =>
       libro.titulo.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
+    console.log(filteredLibros)
     setSearchResults(filteredLibros);
     setShowResults(true);
   };
@@ -58,14 +58,14 @@ function FormBuscarRecurso() {
       </form>
 
       {showResults ? (
-        <div className='mt-4'>
+        <div className='mt-4 flex flex-wrap justify-center'>
           {searchResults.map((result) => (
             <CardBusqueda 
             key={result.id}
-            titulo={result.titulo} 
-            author={result.author}
+            title={result.titulo} 
+            author={result.autor}
             imagen={result.imagenPortadaUrl}
-            ISBN = {result.ISBN}  
+            ISBN = {result.isbn13}  
             >
             </CardBusqueda> 
           ))}
