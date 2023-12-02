@@ -1,4 +1,4 @@
-const CardBusqueda = ({ id, imagenPortadaUrl, title, ISBN, width = '220px' }) => {
+const CardBusqueda = ({ id, imagenPortadaUrl, title, ISBN,author, width = '220px' }) => {
     return (
       <div
         key={id}
@@ -14,8 +14,9 @@ const CardBusqueda = ({ id, imagenPortadaUrl, title, ISBN, width = '220px' }) =>
           alt={title}
           style={{ height: '240px', width:'180px' }}
         />
-        <p className="text-gray-700">{author}</p>
         <p className="text-gray-700">{ISBN}</p>
+        <p className="text-gray-700">{author}</p>
+
       </div>
     );
   };
