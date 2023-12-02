@@ -7,7 +7,7 @@ import libroApi from '../../api/libro'
 
 function ModificarRecurso({ searchParams }) {
 
-    const user = JSON.parse(localStorage.getItem('user')) || {}
+    const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     const tabs = [
         {
