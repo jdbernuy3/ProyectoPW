@@ -49,9 +49,9 @@ const PerfilEstudiante = () => {
             contraseña: contrasena || '',
         });
 
-        /*if(fotoUrl!=null){
+        if(fotoUrl!=null){
             setProfileImage(fotoUrl);
-        }*/
+        }
 
     }, []);
 

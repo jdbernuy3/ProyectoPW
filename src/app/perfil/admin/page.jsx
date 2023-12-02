@@ -62,9 +62,9 @@ const PerfilAdmin = () => {
             color: color || '',
         });
 
-        /*if(fotoUrl!=null){
+        if(fotoUrl!=null){
             setProfileImage(fotoUrl);
-        }*/
+        }
     }, []);
     
         
