@@ -30,6 +30,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
 
     const emailExistsInDB = usuarios.length > 0 && usuarios.map((user) => user.correo === formAccount.correo).includes(true);
 
+    console.log(emailExistsInDB);
     if (emailExistsInDB || !formAccount.correo.includes('@')) {
       alert('Email ya registrado o formato incorrecto, modificación rechazada');
       return;
