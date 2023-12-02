@@ -22,7 +22,7 @@ function FormDatosPersonales({userData, setUserData}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+    const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     if (formData.tdoc !== '1' && formData.tdoc !== '2') {
       alert('No se actualizaron los datos. Tipo de documento no seleccionado.');

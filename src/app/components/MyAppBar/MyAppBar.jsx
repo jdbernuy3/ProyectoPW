@@ -29,7 +29,7 @@ export default function MyAppBar(props) {
     const showSidebar = () => setSidebar(!sidebar);
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+        const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
         let esAdmin = false;
         let esAlum = false;

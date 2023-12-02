@@ -38,7 +38,7 @@ function FormCuenta({cuentaData, setCuentaData} ) {
       return;
     }
 
-    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+    const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     console.log('Datos antiguos', cuentaData);
     console.log('Nuevos Datos:', formAccount);

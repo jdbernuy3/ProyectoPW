@@ -5,7 +5,7 @@ import FormInsertarRecurso from "../components/FormInsertarRecurso/FormInsertarR
 
 function InsertarRecurso() {
 
-    const user = JSON.parse(localStorage.getItem('user')) || null
+    const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     const tabs = [
         {

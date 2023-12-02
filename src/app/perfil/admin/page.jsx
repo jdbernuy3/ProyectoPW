@@ -38,7 +38,7 @@ const PerfilAdmin = () => {
     
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
         setLoggedUser(userFromStorage);
     
         const { id, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, correo, contrasena, idioma, prefijo, color} = userFromStorage;

@@ -16,7 +16,7 @@ function FormPreferencias({ preferencias, setPreferencias }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userFromStorage = JSON.parse(localStorage.getItem('user')) || {};
+    const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
 
     console.log('Datos antiguos:', preferencias);
     console.log('Nuevos Datos:', formPref);

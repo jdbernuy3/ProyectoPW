@@ -33,7 +33,7 @@ const PerfilEstudiante = () => {
 
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
         setLoggedUser(userFromStorage);
     
         const { id, nombres, apellidos, fotoUrl, idTipoUsuario, idTipoDoc, nroDoc, correo, contrasena, idioma, prefijo, color} = userFromStorage;
@@ -101,7 +101,7 @@ const PerfilEstudiante = () => {
       };
 
       const HandleguardarimagenBD = (event) =>{
-        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        const userFromStorage = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
         userFromStorage.fotoUrl=profileImage;
         console.log(userFromStorage);
         localStorage.setItem('user', JSON.stringify(userFromStorage));

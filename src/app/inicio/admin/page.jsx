@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function InicioAdmin() {
 
     //const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
-    const user = JSON.parse(localStorage.getItem('user')) || {}
+    const user = (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('user')) || {} : {};
     const [ultimasReservas, setUltimasReservas] = useState([]);
     const [masPedidos, setMasPedidos] = useState([]);
 
@@ -52,7 +52,7 @@ function InicioAdmin() {
             <MyAppBar></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
             <div className="grid grid-cols-2">
-                <h1 className="pt-10 text-4xl">{`Bienvenido, ${user.nombres}!`}</h1>
+                <h1 className="pt-10 text-4xl">{`Bienvenido`}</h1>
                 <a href={'/insertarRecurso'} className="justify-self-end bg-purple-500 hover:bg-purple-700 text-white py-2 px-10 mt-10 mr-12 rounded-3xl focus:ring-0">Insertar recurso</a>
             </div>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
