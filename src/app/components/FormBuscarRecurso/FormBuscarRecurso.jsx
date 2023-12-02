@@ -62,8 +62,8 @@ function FormBuscarRecurso() {
           {searchResults.map((result) => (
             <CardBusqueda 
             key={result.id}
-            id={result.id}
             titulo={result.titulo} 
+            author={result.author}
             imagen={result.imagenPortadaUrl}
             ISBN = {result.ISBN}  
             >
