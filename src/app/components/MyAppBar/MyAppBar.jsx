@@ -87,7 +87,7 @@ export default function MyAppBar(props) {
                     {esAdministrador ? (
                             <a href="/inicio/admin" className="flex items-center p-2 text-[#6750A4] rounded-lg hover:bg-gray-100 px-10">Inicio</a>
                             ) : (
-                            <a href="/inicio/alumno" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Inicio</a>
+                            <a href="/inicio/estudiante" className="flex items-center p-2 text-[#6750A4] rounded-lg hover-bg-gray-100 px-10">Inicio</a>
                             )}
                     </li>
                     <li>
