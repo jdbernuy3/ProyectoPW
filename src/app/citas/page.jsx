@@ -132,7 +132,7 @@ function Citas() {
                                 </td>
                                 <td className="px-4">{book.titulo}</td>
                                 <td className="px-4">
-                                    <div className={`rounded p-2 mr-2 rounded-lg font-bold ${book.available ? 'bg-purple-200' : 'bg-red-200'}`} style={{ width: "100px", marginRight: "-50px" }}>
+                                    <div className={`p-2 mr-2 rounded-lg font-bold ${book.available ? 'bg-purple-200' : 'bg-red-200'}`} style={{ width: "100px", marginRight: "-50px" }}>
                                         {book.available ? 'Disponible' : 'No Disponible'}
                                     </div>
                                 </td>
@@ -157,7 +157,7 @@ function Citas() {
                                 <td className="py-4" colSpan="3">
                                     <h3 className="text-gray-600 font-light ml-20 mb-2">Tópicos del libro:</h3>
                                     <div className="flex flex-row ml-20">
-                                        <div className="rounded p-2 mr-2 rounded-lg border-solid border-2 border-gray-400 font-bold">{book.categorias}</div>
+                                        <div className="p-2 mr-2 rounded-lg border-solid border-2 border-gray-400 font-bold">{book.categorias}</div>
                                     </div>
                                 </td>
                             </tr>
