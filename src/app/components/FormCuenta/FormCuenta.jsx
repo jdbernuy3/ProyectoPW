@@ -12,7 +12,9 @@ function FormCuenta({cuentaData, setCuentaData} ) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const usuariosData = await usuarioApi.findAll();
+      const usuariosData = await usuarioApi.findAll().then(
+        promise => promise.data
+      )
       console.log('Usuarios Data:', usuariosData);
       setUsuarios(usuariosData);
     };
