@@ -48,7 +48,12 @@ export default function MyTabPanel(props) {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 0, borderColor: 'divider', borderRadius: 5, backgroundColor: '#FEF7FF' }}>
+            <Box sx={{ display: 'flex',
+                    justifyContent: 'center',
+                    borderBottom: 0,
+                    borderColor: 'divider',
+                    borderRadius: 5,
+                    backgroundColor: '#FEF7FF'}}>
                 <Tabs value={value} onChange={handleChange} textColor="secondary" indicatorColor="secondary" aria-label="basic tabs example">
                     {
                         props.tabs.map((element) =>
