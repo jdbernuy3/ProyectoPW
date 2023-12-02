@@ -1,8 +1,7 @@
 'use client';
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
-import FormResultados from "../FormResultados/Resultados";
-import button from "@mui/material/Button"
+import FormBuscarRecurso from "../FormBuscarRecurso/FormBuscarRecurso";
 
 
     const busquedaResultados = () => {
@@ -10,7 +9,7 @@ import button from "@mui/material/Button"
         const tabs = [
             {
                 id: 0,
-                contenido:<FormResultados></FormResultados>
+                contenido:<FormBuscarRecurso></FormBuscarRecurso>
             },
         ]
     
