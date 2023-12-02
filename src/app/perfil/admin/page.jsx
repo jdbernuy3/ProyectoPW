@@ -12,8 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import users from "@/data/users";
-
+import usuarioApi from '../../../api/usuario'; //update.
 
 
 const PerfilAdmin = () => {
@@ -92,7 +91,6 @@ const PerfilAdmin = () => {
     ]
 
     
-
     const handleOpenDialog = () => {
         setOpenDialog(true);
     };
@@ -101,11 +99,32 @@ const PerfilAdmin = () => {
         setOpenDialog(false);
     };
 
+    
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
-        setProfileImage(URL.createObjectURL(file));
-        handleCloseDialog();
-    };
+
+        if (file) {
+          const reader = new FileReader();
+      
+          reader.onload = (e) => {
+            const base64String = e.target.result;
+            console.log("Cadena base64 de la imagen:", base64String);
+            setProfileImage(base64String);
+            handleCloseDialog();
+          };
+      
+          reader.readAsDataURL(file);
+        }
+      };
+
+      const HandleguardarimagenBD = (event) =>{
+        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        userFromStorage.fotoUrl=profileImage;
+        console.log(userFromStorage);
+        localStorage.setItem('user', JSON.stringify(userFromStorage));
+        usuarioApi.update(userFromStorage)
+
+      }
 
 
     return (
@@ -120,6 +139,9 @@ const PerfilAdmin = () => {
                     <IconButton onClick={handleOpenDialog} style={{ position: 'absolute', bottom: 0, right: 0 }}>
                         <PhotoCameraIcon />
                     </IconButton>
+                    <Button onClick={HandleguardarimagenBD} variant="contained" color="primary" style={{ position: 'absolute', bottom: 0, left: 0, margin: '8px' }}>
+                Guardar Imagen
+              </Button>
                 </div>
             </div>
             <Dialog open={openDialog} onClose={handleCloseDialog}>

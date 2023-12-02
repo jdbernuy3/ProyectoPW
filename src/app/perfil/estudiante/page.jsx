@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import YouTube from 'react-youtube'; 
 import React, { useState, useEffect } from 'react';
+import usuarioApi from '../../../api/usuario'; //update.
 
 
 
@@ -81,11 +82,34 @@ const PerfilEstudiante = () => {
         setOpenDialog(false);
     };
 
+    
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
-        setProfileImage(URL.createObjectURL(file));
-        handleCloseDialog();
-    };
+
+        if (file) {
+          const reader = new FileReader();
+      
+          reader.onload = (e) => {
+            const base64String = e.target.result;
+            console.log("Cadena base64 de la imagen:", base64String);
+            setProfileImage(base64String);
+            handleCloseDialog();
+          };
+      
+          reader.readAsDataURL(file);
+        }
+      };
+
+      const HandleguardarimagenBD = (event) =>{
+        const userFromStorage = JSON.parse(localStorage.getItem("user")) || {};
+        userFromStorage.fotoUrl=profileImage;
+        console.log(userFromStorage);
+        localStorage.setItem('user', JSON.stringify(userFromStorage));
+        usuarioApi.update(userFromStorage)
+
+      }
+
+
 
     // Función para manejar el cambio en el enlace de música favorita
     function getVideoId(url) {
@@ -113,60 +137,64 @@ const PerfilEstudiante = () => {
     
     return (
         <>
-            <MyAppBar text='Administración de bibliotecas'></MyAppBar>
-            <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
-                <h1 className="pt-10 text-4xl">Mi Perfil</h1>
-                <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
-                <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
-                <img className='h-96 w-96' src={profileImage} alt="Imagen de perfil"></img>
-                    <MyTabPanel tabs={tabs}></MyTabPanel>
-                    <IconButton onClick={handleOpenDialog} style={{ position: 'absolute', bottom: 0, right: 0 }}>
-                        <PhotoCameraIcon />
-                    </IconButton>
-                </div>
-                <div className="p-4">
-                    <div className="text-center">
-                        <h1 className="text-2xl">Música Favorita del Estudiante</h1>
-                        {/* Campo de entrada para la música favorita */}
-                        <input
-                            type="text"
-                            className="block mx-auto" // Estilo para centrar el campo de entrada
-                            placeholder="Enlace de YouTube de tu música favorita"
-                            value={favoriteMusicLink}
-                            onChange={handleFavoriteMusicChange}
-                        />
-                    </div>
-                </div>
-                {favoriteMusicLink && (
-                    <div className="flex items-center justify-center">
-                        <YouTube videoId={getVideoId(favoriteMusicLink)} />
-                    </div>
-                )}
+          <MyAppBar text='Administración de bibliotecas'></MyAppBar>
+          <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
+            <h1 className="pt-10 text-4xl">Mi Perfil</h1>
+            <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
+            <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2 relative">
+              <img className='h-96 w-96' src={profileImage} alt="Imagen de perfil"></img>
+              <MyTabPanel tabs={tabs}></MyTabPanel>
+              <IconButton onClick={handleOpenDialog} style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                <PhotoCameraIcon />
+              </IconButton>
+              <Button onClick={HandleguardarimagenBD} variant="contained" color="primary" style={{ position: 'absolute', bottom: 0, left: 0, margin: '8px' }}>
+                Guardar Imagen
+              </Button>
             </div>
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogTitle>Subir nueva imagen de perfil</DialogTitle>
-                <DialogContent>
-                    <input
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        id="image-upload"
-                        type="file"
-                        onChange={handleImageUpload}
-                    />
-                    <label htmlFor="image-upload">
-                        <Button component="span">
-                            Seleccionar archivo
-                        </Button>
-                    </label>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseDialog} color="primary">
-                        Cancelar
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <div className="p-4">
+              <div className="text-center">
+                <h1 className="text-2xl">Música Favorita del Estudiante</h1>
+                {/* Campo de entrada para la música favorita */}
+                <input
+                  type="text"
+                  className="block mx-auto" // Estilo para centrar el campo de entrada
+                  placeholder="Enlace de YouTube de tu música favorita"
+                  value={favoriteMusicLink}
+                  onChange={handleFavoriteMusicChange}
+                />
+              </div>
+            </div>
+            {favoriteMusicLink && (
+              <div className="flex items-center justify-center">
+                <YouTube videoId={getVideoId(favoriteMusicLink)} />
+              </div>
+            )}
+          </div>
+          <Dialog open={openDialog} onClose={handleCloseDialog}>
+            <DialogTitle>Subir nueva imagen de perfil</DialogTitle>
+            <DialogContent>
+              <input
+                accept="image/*"
+                style={{ display: 'none' }}
+                id="image-upload"
+                type="file"
+                onChange={handleImageUpload}
+              />
+              <label htmlFor="image-upload">
+                <Button component="span">
+                  Seleccionar archivo
+                </Button>
+              </label>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                Cancelar
+              </Button>
+            </DialogActions>
+          </Dialog>
         </>
-    );
+      );
+      
 } 
 
 export default PerfilEstudiante
