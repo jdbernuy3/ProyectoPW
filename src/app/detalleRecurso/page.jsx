@@ -18,10 +18,11 @@ function DetalleRecurso({ searchParams }) {
     }, []);
 
     const cargarLibro = () => {
-        libroApi.findOne(searchParams.id)
+        libroApi.findOneComplete(searchParams.id)
             .then(promise => {
                 if(promise != null) {
                     setLibro(promise.data)
+                    console.log(promise.data)
                 }
                 
             })
@@ -49,9 +50,9 @@ function DetalleRecurso({ searchParams }) {
                     (libro !== null) ? (
                         <div>
                             <h1 className="p-10 font-bold text-4xl">{libro.titulo}</h1>
-                            <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
-                                <img className="w-64 h-fit" src={libro.imagenPortadaUrl}></img>
-                                <div className="w-max p-10 grid gap-20 md:grid-cols-2">
+                            <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2 content-center items-center">
+                                <img className="min-w-300px object-cover" src={libro.imagenPortadaUrl}></img>
+                                <div className="w-max p-10 grid gap-20 md:grid-cols-3">
                                     <div>
                                         <h2 className="font-regular text-2xl">Autor:</h2>
                                         <p>{libro.autor}</p>
@@ -74,17 +75,28 @@ function DetalleRecurso({ searchParams }) {
                                         <button onClick={handleEliminar} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full focus:ring-0">Eliminar</button>
                                         <AlertDialog title='Eliminación Completa' text='El recurso ha sido eliminado con éxito.' open={alertDialog} onClose={handleAlert}></AlertDialog>
                                     </div>
+                                    <div>
+                                        <h2 className="font-regular text-2xl">Título:</h2>
+                                        <p>{libro.titulo}</p>
+                                        <br></br>
+                                        <h2 className="font-regular text-2xl">Encuadernación:</h2>
+                                        <p>{libro.encuadernacion}</p>
+                                        <br></br>
+                                        <h2 className="font-regular text-2xl">Veces reservado:</h2>
+                                        <p>{libro.vecesReservado}</p>
+                                        <br></br>
+                                    </div>
                                     {
                                         !libro.available ? (
                                             <div>
                                                 <h2 className="font-regular text-2xl">Fecha Reserva:</h2>
-                                                <p>{libro.fechaReserva}</p>
+                                                <p>{libro.reserva.fechaReserva.substring(0,10)}</p>
                                                 <br></br>
                                                 <h2 className="font-regular text-2xl">Fecha Retorno:</h2>
-                                                <p>{libro.fechaRetorno}</p>
+                                                <p>{libro.reserva.fechaDevolucion.substring(0,10)}</p>
                                                 <br></br>
                                                 <h2 className="font-regular text-2xl">Estudiante:</h2>
-                                                <p>{libro.estudiante}</p>
+                                                <p>{libro.reserva.usuario.nombres}</p>
                                                 <br></br>
                                             </div>
                                         ) : (
