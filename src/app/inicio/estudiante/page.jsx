@@ -56,7 +56,10 @@ function InicioEstudiante() {
                     const fechaB = new Date(b.fechaDevolucion)
                     return fechaA - fechaB
                 })
-                setProntasAVencer(reservasOrdenadas)
+
+                const top3 = reservasOrdenadas.slice(0, 3);
+
+                setProntasAVencer(top3)
 
             })
     }
