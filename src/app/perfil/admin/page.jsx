@@ -61,6 +61,10 @@ const PerfilAdmin = () => {
             prefijo: prefijo || '',
             color: color || '',
         });
+
+        /*if(fotoUrl!=null){
+            setProfileImage(fotoUrl);
+        }*/
     }, []);
     
         

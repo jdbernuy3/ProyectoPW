@@ -49,6 +49,10 @@ const PerfilEstudiante = () => {
             contraseña: contrasena || '',
         });
 
+        /*if(fotoUrl!=null){
+            setProfileImage(fotoUrl);
+        }*/
+
     }, []);
 
     const tabs = [
