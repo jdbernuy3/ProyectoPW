@@ -1,2 +1,4 @@
 {
+    "appService.defaultWebAppToDeploy": "/subscriptions/77f72482-dc01-46ad-893c-e63c3eb1b9b1/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/ggranda-2023-prograweb-as-web",
+    "appService.deploySubpath": "."
 }

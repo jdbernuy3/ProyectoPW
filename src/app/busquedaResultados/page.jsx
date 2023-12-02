@@ -1,7 +1,7 @@
 'use client';
 import MyAppBar from "@/app/components/MyAppBar/MyAppBar";
 import MyTabPanel from "@/app/components/MyTabPanel/MyTabPanel";
-import FormBuscarRecurso from "../FormBuscarRecurso/FormBuscarRecurso";
+import FormBuscarRecurso from "../components/FormBuscarRecurso/FormBuscarRecurso";
 
 
     const busquedaResultados = () => {

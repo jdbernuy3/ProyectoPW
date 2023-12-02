@@ -5,6 +5,8 @@ import FormInsertarRecurso from "../components/FormInsertarRecurso/FormInsertarR
 
 function InsertarRecurso() {
 
+    const user = JSON.parse(localStorage.getItem('user')) || null
+
     const tabs = [
         {
             id: 0,
@@ -17,7 +19,7 @@ function InsertarRecurso() {
         <>
             <MyAppBar></MyAppBar>
             <div className="bg-white h-100v w-100v pl-52 pr-8 pt-16">
-                <h1 className="pt-10 text-4xl">Hola, Juliana</h1>
+                <h1 className="pt-10 text-4xl">Hola, {user.nombres}</h1>
                 <hr className="my-8 h-0.5 border-t-0 bg-[#CAC4D0] opacity-100" />
 
                 <div className="h-100v w-100v bg-[#F3EDF7] flex p-10 space-x-2">
